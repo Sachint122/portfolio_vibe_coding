@@ -6,18 +6,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // VS Code theme colors (will use CSS variables)
-        'vscode-bg': 'var(--bg-primary)',
-        'vscode-sidebar': 'var(--bg-sidebar)',
-        'vscode-editor': 'var(--bg-editor)',
-        'vscode-text': 'var(--text-primary)',
-        'vscode-accent': 'var(--color-accent)',
+        // GitHub Dark Theme (Original)
+        'vscode-bg': 'var(--color-bg)',
+        'vscode-sidebar': 'var(--color-sidebar)',
+        'vscode-header': 'var(--color-header)',
         'vscode-border': 'var(--color-border)',
+        'vscode-text': 'var(--color-text)',
+        'vscode-accent': 'var(--color-accent)',
         'vscode-hover': 'var(--color-hover)',
+        'vscode-selection': 'var(--color-selection)',
       },
       fontFamily: {
         mono: ['Fira Code', 'JetBrains Mono', 'Consolas', 'monospace'],
-        sans: ['Inter', 'SF Pro', 'Segoe UI', 'sans-serif'],
       },
     },
   },

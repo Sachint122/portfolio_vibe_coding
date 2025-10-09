@@ -3,84 +3,54 @@
 @tailwind utilities;
 
 /* CSS Variables for VS Code Themes */
+
+/* Add this to the END of your existing index.css file */
+
+/* Theme Variables */
 :root {
-  /* GitHub Dark Theme (Default) */
-  --bg-primary: #0d1117;
-  --bg-sidebar: #161b22;
-  --bg-editor: #0d1117;
-  --bg-titlebar: #161b22;
-  --bg-statusbar: #1f6feb;
-  
-  --text-primary: #c9d1d9;
-  --text-secondary: #8b949e;
-  
-  --color-accent: #58a6ff;
-  --color-secondary: #3fb950;
-  --color-warning: #d29922;
-  --color-error: #f85149;
-  
+  --color-bg: #0d1117;
+  --color-sidebar: #161b22;
+  --color-header: #161b22;
   --color-border: #30363d;
-  --color-hover: #1f2428;
+  --color-text: #c9d1d9;
+  --color-accent: #58a6ff;
+  --color-hover: #1c2128;
   --color-selection: #1f6feb;
-  
-  /* Syntax highlighting */
-  --syntax-keyword: #ff7b72;
-  --syntax-string: #a5d6ff;
-  --syntax-function: #d2a8ff;
-  --syntax-comment: #8b949e;
-  --syntax-variable: #ffa657;
 }
 
-/* Dracula Theme */
-[data-theme='dracula'] {
-  --bg-primary: #282a36;
-  --bg-sidebar: #21222c;
-  --bg-editor: #282a36;
-  --bg-titlebar: #21222c;
-  --bg-statusbar: #bd93f9;
-  
-  --text-primary: #f8f8f2;
-  --text-secondary: #6272a4;
-  
-  --color-accent: #bd93f9;
-  --color-secondary: #50fa7b;
-  --color-warning: #ffb86c;
-  --color-error: #ff5555;
-  
-  --color-border: #44475a;
-  --color-hover: #44475a;
-  
-  --syntax-keyword: #ff79c6;
-  --syntax-string: #f1fa8c;
-  --syntax-function: #50fa7b;
-  --syntax-comment: #6272a4;
-  --syntax-variable: #ffb86c;
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* One Dark Pro Theme */
-[data-theme='onedark'] {
-  --bg-primary: #282c34;
-  --bg-sidebar: #21252b;
-  --bg-editor: #282c34;
-  --bg-titlebar: #21252b;
-  --bg-statusbar: #61afef;
-  
-  --text-primary: #abb2bf;
-  --text-secondary: #5c6370;
-  
-  --color-accent: #61afef;
-  --color-secondary: #98c379;
-  --color-warning: #e5c07b;
-  --color-error: #e06c75;
-  
-  --color-border: #181a1f;
-  --color-hover: #2c323c;
-  
-  --syntax-keyword: #c678dd;
-  --syntax-string: #98c379;
-  --syntax-function: #61afef;
-  --syntax-comment: #5c6370;
-  --syntax-variable: #d19a66;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Slide Down Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.2s ease-out;
 }
 
 /* Smooth theme transitions */
@@ -198,4 +168,51 @@ html {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+}
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Slide Down Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideDown {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

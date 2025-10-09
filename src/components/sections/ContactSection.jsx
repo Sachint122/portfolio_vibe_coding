@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { VscMail, VscGithub, VscLocation, VscSend } from 'react-icons/vsc';
-import { FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { VscMail, VscGithub, VscLocation, VscSend, VscCheck } from 'react-icons/vsc';
+import { FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { portfolioData } from '../../data/portfolioData';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const { about } = portfolioData;
@@ -12,18 +13,50 @@ const ContactSection = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  
+  // EmailJS Configuration
+  const EMAILJS_CONFIG = {
+    serviceId: 'service_onvylkb',    // Replace with your EmailJS Service ID
+    templateId: 'template_6ejmy03',  // Replace with your EmailJS Template ID
+    publicKey: 'nSxlhbW-UkIq6PJvz'     // Replace with your EmailJS Public Key
+  };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus(null);
     
-    // TODO: Connect to backend API
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      alert('Thank you for your message! I will get back to you soon.');
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_name: about.name,
+        },
+        EMAILJS_CONFIG.publicKey
+      );
+      
+      console.log('Email sent successfully:', result);
+      setSubmitStatus('success');
+      
+      // Reset form
       setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => setSubmitStatus(null), 5000);
+      
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
   
   const handleChange = (e) => {
@@ -88,6 +121,15 @@ const ContactSection = () => {
               <VscGithub size={24} className="text-vscode-text" />
             </a>
             <a
+              href={`https://wa.me/${about.whatsapp.replace(/[^0-9]/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-14 h-14 rounded-full bg-vscode-hover border border-vscode-border flex items-center justify-center hover:border-vscode-accent hover:bg-vscode-accent/10 transition-all"
+              title="GitHub"
+            >
+              <FaWhatsapp size={24} className="text-vscode-text" />
+            </a>
+            <a
               href={about.linkedin}
               target="_blank"
               rel="noopener noreferrer"
@@ -96,21 +138,30 @@ const ContactSection = () => {
             >
               <FaLinkedin size={24} className="text-vscode-text" />
             </a>
-            <a
-              href={about.twitter}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-14 h-14 rounded-full bg-vscode-hover border border-vscode-border flex items-center justify-center hover:border-vscode-accent hover:bg-vscode-accent/10 transition-all"
-              title="Twitter"
-            >
-              <FaTwitter size={24} className="text-vscode-text" />
-            </a>
           </div>
         </div>
-        
         {/* Contact Form */}
         <div className="bg-vscode-hover border border-vscode-border rounded-lg p-6">
           <h2 className="text-2xl font-bold text-vscode-text mb-6">Send a Message</h2>
+          
+          {/* Success Message */}
+          {submitStatus === 'success' && (
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3 animate-slideDown">
+              <VscCheck size={24} className="text-green-500" />
+              <div>
+                <p className="text-green-500 font-medium">Message sent successfully!</p>
+                <p className="text-green-500/70 text-sm">I'll get back to you soon.</p>
+              </div>
+            </div>
+          )}
+          
+          {/* Error Message */}
+          {submitStatus === 'error' && (
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg animate-slideDown">
+              <p className="text-red-500 font-medium">Failed to send message</p>
+              <p className="text-red-500/70 text-sm">Please try again or email me directly.</p>
+            </div>
+          )}
           
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>

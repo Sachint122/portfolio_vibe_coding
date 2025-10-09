@@ -8,6 +8,8 @@ import ExperienceSection from '../sections/ExperienceSection';
 import ContactSection from '../sections/ContactSection';
 import NotFound from '../sections/NotFound';
 import { VscCode } from 'react-icons/vsc';
+import ResumeSection from '../sections/ResumeSection';
+
 
 const CodeEditor = () => {
   const { openTabs, activeTabId } = usePortfolioStore();
@@ -25,44 +27,34 @@ const CodeEditor = () => {
     );
   }
   
-  const renderContent = () => {
-    switch (activeTab.type) {
-      case 'welcome':
-        return <WelcomeSection />;
-      case 'about':
-        return <AboutSection />;
-      case 'skills':
-        return <SkillsSection />;
-      case 'experience':
-        return <ExperienceSection />;
-      case 'project':
-        return <ProjectsSection projectId={activeTab.projectId} />;
-      case 'projects':
-        return <ProjectsSection />;
-      case 'contact':
-        return <ContactSection />;
-      case 'resume':
-        return (
-          <div className="flex items-center justify-center h-full p-8">
-            <div className="text-center">
-              <p className="text-6xl mb-4">📕</p>
-              <h2 className="text-2xl font-bold text-vscode-text mb-4">Resume</h2>
-              <p className="text-vscode-text/70 mb-6">Download my complete resume in PDF format</p>
-              <a
-                href="/resume.pdf"
-                download
-                className="inline-flex items-center gap-2 px-8 py-4 bg-vscode-accent text-white rounded-lg font-medium text-lg hover:opacity-90 transition-opacity shadow-lg"
-              >
-                <span>📄</span>
-                Download Resume PDF
-              </a>
-            </div>
-          </div>
-        );
-      default:
-        return <NotFound />;
-    }
-  };
+ const renderContent = () => {
+  switch (activeTab.type) {
+    case 'welcome':
+      return <WelcomeSection />;
+    case 'about':
+      return <AboutSection />;
+    case 'skills':
+      return <SkillsSection />;
+    case 'experience':
+      return <ExperienceSection />;
+    case 'project':
+      return <ProjectsSection projectId={activeTab.projectId} />;
+    case 'all-projects':
+      return <ProjectsSection />;
+    case 'contact':
+      return <ContactSection />;
+    case 'all-resumes':
+      return <ResumeSection />;  // All resumes grid
+    case 'single-resume':
+      return <ResumeSection resumeId={activeTab.resumeId} />;  // Single resume detail
+    case 'resume':  // Default resume.pdf click
+      return <ResumeSection />;  // Shows all resumes
+    default:
+      return <NotFound />;
+  }
+ };
+
+
   
   return (
     <div className="flex-1 overflow-y-auto">

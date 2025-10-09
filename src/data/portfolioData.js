@@ -5,22 +5,46 @@ export const portfolioData = {
     location: "Varanasi, India",
     age: 26,
     bio: "Passionate MERN Stack Developer with expertise in building scalable web applications using MongoDB, Express.js, React.js, and Node.js. Experienced in creating responsive user interfaces and robust backend systems.",
-    email: "sachin.tiwari@example.com",
-    phone: "+91-XXXXXXXXXX",
-    github: "https://github.com/sachintiwari",
-    linkedin: "https://linkedin.com/in/sachintiwari",
-    twitter: "https://twitter.com/sachintiwari",
-    resume: "/resume.pdf"
+    email: "sachintiwari.751858@gmail.com",
+    phone: "+91-8081731062",
+    github: "https://github.com/sachint122",
+    linkedin: "https://www.linkedin.com/in/sachin-tiwari-javafullstack/",
+    whatsapp: "+918081731062"
   },
+  
+  // ✅ Add this resumes array
+  resumes: [
+    {
+      id: 'resume-fullstack',
+      title: 'Full Stack Developer',
+      description: 'Focused on MERN stack development and full-stack projects',
+      driveId: '1ZpMOEyuhiSZn6TWbpkVLa3w1sylzV-xd', // Replace with your Google Drive File ID
+      icon: '💻',
+      color: 'blue',
+      tags: ['MERN', 'Full Stack', 'React', 'Node.js'],
+      featured: true,
+      lastUpdated: '2025-01-15'
+    },
+    {
+      id: 'resume-backend',
+      title: 'Backend Developer',
+      description: 'Expert in Node.js, Express, and database management',
+      driveId: '1zIgxSWQDHPWpIWEH25P49_TRoVwI6SLZ', // Replace with your Google Drive File ID
+      icon: '⚙️',
+      color: 'green',
+      tags: ['Node.js', 'MongoDB', 'REST API', 'Express'],
+      featured: false,
+      lastUpdated: '2025-01-12'
+    }
+  ],
   
   skills: {
     frontend: [
-      { name: "React.js", level: 90 },
-      { name: "HTML5", level: 95 },
-      { name: "CSS3", level: 90 },
+      { name: "React.js", level: 80 },
+      { name: "HTML5", level: 90 },
+      { name: "CSS3", level: 70 },
       { name: "JavaScript", level: 92 },
       { name: "Tailwind CSS", level: 85 },
-      { name: "Redux", level: 80 }
     ],
     backend: [
       { name: "Node.js", level: 88 },
@@ -34,7 +58,6 @@ export const portfolioData = {
       { name: "VS Code", level: 95 },
       { name: "Postman", level: 85 },
       { name: "npm/yarn", level: 90 },
-      { name: "Webpack", level: 75 }
     ]
   },
   
@@ -126,11 +149,11 @@ export const portfolioData = {
   
   education: [
     {
-      degree: "Bachelor of Technology in Computer Science",
-      institution: "University Name",
+      degree: "Bachelor of computer application in Computer Science",
+      institution: "Mahatama Gandhi kashi vidyapeeth(MGKVP)",
       location: "Varanasi, India",
-      year: "2017 - 2021",
-      grade: "8.5 CGPA"
+      year: "2021 - 2024",
+      grade: "71%"
     }
   ]
 };

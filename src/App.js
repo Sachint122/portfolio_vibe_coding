@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import VSCodeLayout from './components/layout/VSCodeLayout';
 import usePortfolioStore from './store/portfolioStore';
+import { applyTheme, getThemeFromStorage } from './utils/themes';
 import './App.css';
 
 function App() {
@@ -21,8 +22,18 @@ function App() {
       window.removeEventListener('keydown', handleKeyPress);
     };
   }, [toggleTerminal]);
+
+  useEffect(() => {
+    // Apply saved theme on mount
+    const savedTheme = getThemeFromStorage();
+    applyTheme(savedTheme);
+  }, []);
   
-  return <VSCodeLayout />;
+   return (
+    <div className="App">
+      <VSCodeLayout />
+    </div>
+  );
 }
 
 export default App;
