@@ -24,7 +24,7 @@ const usePortfolioStore = create((set) => ({
     // If we have reached the max tabs limit, remove the oldest tab (first tab)
     if (newTabs.length >= MAX_TABS) {
       // Remove the first tab (oldest)
-      const removedTab = newTabs.shift();
+      newTabs.shift();
       
       // If the removed tab was active, we need to set a new active tab
       // We'll set the last tab as active after adding the new one
