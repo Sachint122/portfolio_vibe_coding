@@ -5,12 +5,85 @@ export const fileSystem = {
   expanded: true,
   children: [
     {
-      id: 'about',
-      name: 'about.js',
-      type: 'file',
-      language: 'javascript',
-      icon: 'js',
-      content: 'about'
+      id: 'projects-folder',
+      name: 'projects',
+      type: 'folder',
+      expanded: false,
+      children: [
+        {
+          id: 'project-send-mail',
+          name: 'send-mail-app.js',
+          type: 'file',
+          language: 'javascript',
+          icon: 'js',
+          content: 'project',
+          projectId: 'send-mail-app'
+        },
+        {
+          id: 'project-dti',
+          name: 'destination-technology-institute.html',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'dti-website'
+        },
+        {
+          id: 'project-rajasthani-fufi',
+          name: 'rajasthani-fufi.jsx',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'rajasthani-fufi'
+        },
+        {
+          id: 'project-home-automation',
+          name: 'home-automation.java',
+          type: 'file',
+          language: 'java',
+          icon: 'java',
+          content: 'project',
+          projectId: 'home-automation'
+        },
+
+        {
+          id: 'project-library',
+          name: 'library-management.ts',
+          type: 'file',
+          language: 'typescript',
+          icon: 'ts',
+          content: 'project',
+          projectId: 'library-management'
+        },
+        {
+          id: 'project-car-rental',
+          name: 'car-rental-website.html',
+          type: 'file',
+          language: 'html',
+          icon: 'html',
+          content: 'project',
+          projectId: 'car-rental-website'
+        },
+        {
+          id: 'project-pasovit',
+          name: 'pasovit-task-manager.js',
+          type: 'file',
+          language: 'javascript',
+          icon: 'js',
+          content: 'project',
+          projectId: 'pasovit-task-manager'
+        },
+        {
+          id: 'project-youtube',
+          name: 'youtube-downloader.js',
+          type: 'file',
+          language: 'javascript',
+          icon: 'js',
+          content: 'project',
+          projectId: 'youtube-downloader'
+        }
+      ]
     },
     {
       id: 'skills',
@@ -29,41 +102,6 @@ export const fileSystem = {
       content: 'experience'
     },
     {
-      id: 'projects-folder',
-      name: 'projects',
-      type: 'folder',
-      expanded: false,
-      children: [
-        {
-          id: 'project-home-automation',
-          name: 'home-automation.jsx',
-          type: 'file',
-          language: 'react',
-          icon: 'react',
-          content: 'project',
-          projectId: 'home-automation'
-        },
-        {
-          id: 'project-send-mail',
-          name: 'send-mail-app.js',
-          type: 'file',
-          language: 'javascript',
-          icon: 'js',
-          content: 'project',
-          projectId: 'send-mail-app'
-        },
-        {
-          id: 'project-library',
-          name: 'library-management.ts',
-          type: 'file',
-          language: 'typescript',
-          icon: 'ts',
-          content: 'project',
-          projectId: 'library-management'
-        }
-      ]
-    },
-    {
       id: 'contact',
       name: 'contact.jsx',
       type: 'file',
@@ -78,6 +116,14 @@ export const fileSystem = {
       language: 'pdf',
       icon: 'pdf',
       content: 'resume'
-    }
+    },
+    {
+      id: 'about',
+      name: 'about.js',
+      type: 'file',
+      language: 'javascript',
+      icon: 'js',
+      content: 'about'
+    },
   ]
 };

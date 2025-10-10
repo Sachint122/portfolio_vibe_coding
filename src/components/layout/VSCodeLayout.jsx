@@ -1,61 +1,47 @@
-import React, { useState } from 'react';
-import TitleBar from './TitleBar';
+import React from 'react';
 import ActivityBar from './ActivityBar';
 import Sidebar from './Sidebar';
+import TabBar from '../features/TabBar';
+import CodeEditor from '../features/CodeEditor';
 import StatusBar from './StatusBar';
-import EditorArea from './EditorArea';
-import Terminal from './Terminal';
-import { VscMenu, VscClose } from 'react-icons/vsc';
+import TerminalEmulator from '../features/TerminalEmulator';
+import TitleBar from './TitleBar';
 import usePortfolioStore from '../../store/portfolioStore';
 
 const VSCodeLayout = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { activeSidebar, setActiveSidebar } = usePortfolioStore();
+  const { terminalVisible } = usePortfolioStore();
   
   return (
-    <div className="h-screen flex flex-col bg-vscode-bg text-vscode-text overflow-hidden">
+    <div className="h-screen flex flex-col bg-vscode-bg text-vscode-text">
       {/* Title Bar */}
       <TitleBar />
       
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden fixed top-12 left-4 z-50 w-10 h-10 bg-vscode-sidebar border border-vscode-border rounded-lg flex items-center justify-center hover:bg-vscode-hover transition-colors"
-      >
-        {mobileMenuOpen ? <VscClose size={20} /> : <VscMenu size={20} />}
-      </button>
-      
-      {/* Main Content Area */}
-      <div className="flex flex-1 overflow-hidden relative">
-        {/* Activity Bar - Hidden on mobile */}
-        <div className="hidden md:block">
-          <ActivityBar />
-        </div>
+      {/* Main Content */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Activity Bar */}
+        <ActivityBar />
         
-        {/* Sidebar - Overlay on mobile */}
-        <div className={`
-          ${mobileMenuOpen ? 'fixed inset-0 z-40 bg-black/50 md:relative md:bg-transparent' : 'hidden md:block'}
-        `}>
-          {mobileMenuOpen && (
-            <div 
-              className="absolute inset-0 md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-            />
-          )}
-          <div className={`
-            ${mobileMenuOpen ? 'absolute left-0 top-0 bottom-0 z-50' : ''}
-            md:relative
-          `}>
-            {activeSidebar && <Sidebar />}
-          </div>
-        </div>
+        {/* Sidebar */}
+        <Sidebar />
         
         {/* Editor Area */}
-        <EditorArea />
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Tab Bar */}
+          <TabBar />
+          
+          {/* Code Editor - Scrollable */}
+          <div className={`flex-1 overflow-hidden ${terminalVisible ? 'h-1/2' : ''}`}>
+            <CodeEditor />
+          </div>
+          
+          {/* Terminal */}
+          {terminalVisible && (
+            <div className="h-1/2 border-t border-vscode-border overflow-hidden">
+              <TerminalEmulator />
+            </div>
+          )}
+        </div>
       </div>
-      
-      {/* Terminal - Hidden on small screens by default */}
-      <Terminal />
       
       {/* Status Bar */}
       <StatusBar />
