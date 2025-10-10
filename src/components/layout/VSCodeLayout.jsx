@@ -12,25 +12,25 @@ const VSCodeLayout = () => {
   const { terminalVisible } = usePortfolioStore();
   
   return (
-    <div className="h-screen flex flex-col bg-vscode-bg text-vscode-text">
+    <div className="h-screen w-screen flex flex-col bg-vscode-bg text-vscode-text overflow-hidden">
       {/* Title Bar */}
       <TitleBar />
       
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Activity Bar */}
+        {/* Activity Bar (Desktop Only) */}
         <ActivityBar />
         
         {/* Sidebar */}
         <Sidebar />
         
         {/* Editor Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-hidden w-full">
           {/* Tab Bar */}
           <TabBar />
           
           {/* Code Editor - Scrollable */}
-          <div className={`flex-1 overflow-hidden ${terminalVisible ? 'h-1/2' : ''}`}>
+          <div className={`flex-1 overflow-hidden w-full ${terminalVisible ? 'h-1/2' : ''}`}>
             <CodeEditor />
           </div>
           

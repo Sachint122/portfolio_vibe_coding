@@ -3,9 +3,10 @@ import usePortfolioStore from '../../store/portfolioStore';
 import FileExplorer from '../features/FileExplorer';
 import GitPanel from '../features/GitPanel';
 import ThemeSelector from '../features/ThemeSelector';
+import { VscClose } from 'react-icons/vsc';
 
 const Sidebar = () => {
-  const { activeSidebar } = usePortfolioStore();
+  const { activeSidebar, setActiveSidebar } = usePortfolioStore();
   
   if (!activeSidebar) return null;
   
@@ -66,14 +67,41 @@ const Sidebar = () => {
   };
   
   return (
-    <div className="w-[280px] bg-vscode-sidebar border-r border-vscode-border h-full flex flex-col shadow-lg">
-      <div className="h-[35px] flex items-center px-4 text-xs font-semibold text-vscode-text uppercase tracking-wide border-b border-vscode-border bg-gradient-to-r from-vscode-sidebar to-vscode-bg">
-        {getTitle()}
+    <>
+      {/* Desktop Sidebar */}
+      <div className="hidden md:flex w-[280px] bg-vscode-sidebar border-r border-vscode-border h-full flex-col shadow-lg">
+        <div className="h-[35px] flex items-center px-4 text-xs font-semibold text-vscode-text uppercase tracking-wide border-b border-vscode-border bg-gradient-to-r from-vscode-sidebar to-vscode-bg">
+          {getTitle()}
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {renderContent()}
+        </div>
       </div>
-      <div className="flex-1 overflow-y-auto">
-        {renderContent()}
+      
+      {/* Mobile Sidebar (Full Screen Overlay) */}
+      <div className="md:hidden fixed inset-0 z-30 flex">
+        <div 
+          className="absolute inset-0 bg-black/50"
+          onClick={() => setActiveSidebar(null)}
+        />
+        <div className="relative w-[85%] max-w-sm bg-vscode-sidebar border-r border-vscode-border h-full flex flex-col shadow-2xl">
+          <div className="h-[50px] flex items-center justify-between px-4 border-b border-vscode-border bg-vscode-header">
+            <span className="text-sm font-semibold text-vscode-text uppercase tracking-wide">
+              {getTitle()}
+            </span>
+            <button
+              onClick={() => setActiveSidebar(null)}
+              className="text-vscode-text hover:text-vscode-accent transition-colors"
+            >
+              <VscClose size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            {renderContent()}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

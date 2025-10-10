@@ -66,12 +66,13 @@ export const portfolioData = {
       id: "send-mail-app",
       title: "Send Mail Application",
       description: "Email management application that allows users to compose, send, and organize emails efficiently with template support. Built with MERN stack and integrated SMTP functionality.",
-      techStack: ["React", "Express.js", "Node.js", "MongoDB", "Nodemailer"],
+      techStack: ["React", "Express.js", "Node.js", "MongoDB", "Google Auth"],
       features: [
         "Rich text email composer",
-        "Attachment support",
-        "Custom email templates",
-        "Contact management"
+        "reusme add and delete",
+        "Custom email templates add and delete",
+        "history management delete serch and export",
+        
       ],
       github: "https://github.com/Sachint122/Mail_System/tree/main/mail_system_live",
       live: "https://mail-system-five.vercel.app/",

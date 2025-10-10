@@ -11,20 +11,20 @@ const TabBar = () => {
   };
   
   return (
-    <div className="flex items-center bg-vscode-sidebar overflow-x-auto border-b border-vscode-border">
+    <div className="flex items-center bg-vscode-sidebar overflow-x-auto border-b border-vscode-border scrollbar-hide">
       {openTabs.map((tab) => (
         <div
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
           className={`
-            flex items-center gap-2 px-4 py-2 cursor-pointer border-r border-vscode-border min-w-[120px] max-w-[200px] group
+            flex items-center gap-2 px-3 md:px-4 py-2 cursor-pointer border-r border-vscode-border min-w-[100px] md:min-w-[120px] max-w-[150px] md:max-w-[200px] group flex-shrink-0
             ${activeTabId === tab.id 
               ? 'bg-vscode-bg text-vscode-accent border-t-2 border-t-vscode-accent' 
               : 'bg-vscode-sidebar text-vscode-text hover:bg-vscode-hover'
             }
           `}
         >
-          <span className="text-sm truncate flex-1">{tab.name}</span>
+          <span className="text-xs md:text-sm truncate flex-1">{tab.name}</span>
           {openTabs.length > 1 && (
             <button
               onClick={(e) => handleCloseTab(e, tab.id)}
