@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { VscDesktopDownload, VscFilePdf, VscEye, VscArrowLeft, VscRocket } from 'react-icons/vsc';
+import { VscDesktopDownload, VscEye, VscArrowLeft, VscRocket } from 'react-icons/vsc';
 import { portfolioData } from '../../data/portfolioData';
 import usePortfolioStore from '../../store/portfolioStore';
 
 const ResumeSection = ({ resumeId }) => {
-  const { about, resumes } = portfolioData;
+  const { resumes } = portfolioData;
   const { openTab } = usePortfolioStore();
   const [showPreview, setShowPreview] = useState(false);
   

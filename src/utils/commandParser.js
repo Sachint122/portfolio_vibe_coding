@@ -1,412 +1,239 @@
 import { portfolioData } from '../data/portfolioData';
-import { fileSystem } from '../data/fileSystem';
-import { commandsList, getHelpText, getWelcomeText } from '../data/commands';
 
 export const parseCommand = (input, context) => {
-  const { openTab, setTheme, clearTerminal, currentDirectory, setCurrentDirectory } = context;
-
-  const trimmedInput = input.trim();
-  if (!trimmedInput) return '';
-
-  const parts = trimmedInput.split(' ');
-  const command = parts[0].toLowerCase();
-  const args = parts.slice(1);
+  const args = input.trim().split(' ');
+  const command = args[0].toLowerCase();
+  const params = args.slice(1);
+  
+  const { openTab } = context || {};
 
   switch (command) {
     case 'help':
-      return getHelpText();
+      return `════════════════════════════════════════════════
+         AVAILABLE COMMANDS - HELP MENU         
+════════════════════════════════════════════════
 
-    case 'clear':
-      clearTerminal();
-      return '';
+  help                Show all available commands
+  clear               Clear terminal screen
+  ls                  List files and folders
+  pwd                 Show current directory
+  whoami              Display user information
+  
+  about               View about section
+  projects            List all projects
+  skills              View skills
+  experience          View work experience
+  contact             View contact info
+  education           View education
+  
+  open [page]         Open page (about, skills, projects, etc.)
+  cat [file]          Display file contents
+  date                Show current date and time
+  echo [text]         Print text to terminal
+  
+  github              Open GitHub profile
+  linkedin            Open LinkedIn profile
 
-    case 'ls':
-      return listFiles(currentDirectory);
-
-    case 'pwd':
-      return `\x1b[36m${currentDirectory}\x1b[0m`;
-
-    case 'cat':
-      if (!args[0]) {
-        return '\x1b[31mError: Please specify a filename\x1b[0m\r\nUsage: cat [filename]';
-      }
-      return displayFileContent(args[0], currentDirectory);
-
-    case 'open':
-      if (!args[0]) {
-        return '\x1b[31mError: Please specify a filename\x1b[0m\r\nUsage: open [filename]';
-      }
-      return openFile(args[0], openTab, currentDirectory);
-
-    case 'cd':
-      if (!args[0]) {
-        setCurrentDirectory('/portfolio');
-        return '\x1b[33mReturned to /portfolio\x1b[0m';
-      }
-      return changeDirectory(args[0], setCurrentDirectory, currentDirectory);
-
-    case 'theme':
-      if (!args[0]) {
-        return `\x1b[33m🎨 Available themes:\x1b[0m
-    
-\x1b[1;36m━━━ Popular Themes ━━━\x1b[0m
-  • \x1b[32mgithubDark\x1b[0m     - GitHub Dark (default)
-  • \x1b[35mdracula\x1b[0m        - Dracula
-  • \x1b[34moneDark\x1b[0m        - One Dark Pro
-  • \x1b[33mmonokai\x1b[0m        - Monokai Pro
-  • \x1b[36mnightOwl\x1b[0m       - Night Owl
-
-\x1b[1;36m━━━ Unique Themes ━━━\x1b[0m
-  • \x1b[35msynthwave\x1b[0m      - Synthwave 84
-  • \x1b[33mcobalt2\x1b[0m        - Cobalt2
-  • \x1b[35mpalenight\x1b[0m      - Material Palenight
-  • \x1b[35mshadesOfPurple\x1b[0m - Shades of Purple
-  • \x1b[33mayuDark\x1b[0m        - Ayu Dark
-
-\x1b[1;36m━━━ Modern Themes ━━━\x1b[0m
-  • \x1b[34mtokyoNight\x1b[0m     - Tokyo Night
-  • \x1b[36mnord\x1b[0m           - Nord
-  • \x1b[33mgruvbox\x1b[0m        - Gruvbox Dark
-  • \x1b[34moceanicNext\x1b[0m    - Oceanic Next
-  • \x1b[31mhorizon\x1b[0m        - Horizon
-
-\x1b[33mUsage:\x1b[0m theme [name]
-\x1b[90mExample: theme dracula\x1b[0m`;
-      }
-      return changeTheme(args[0], setTheme);
-
-    case 'whoami':
-      return `\x1b[1;36m${portfolioData.about.name}\x1b[0m\r\n${portfolioData.about.title}\r\n${portfolioData.about.location}`;
+💡 Tips:
+   • Type commands and press Enter
+   • Use 'open [page]' to navigate
+   • Try 'cat README.md' for info
+`;
 
     case 'about':
-      openTab({ id: 'about', name: 'about.js', type: 'about', language: 'javascript' });
-      return '\x1b[32m✓ Opened about.js in editor\x1b[0m';
+      return `
+╔═══════════════════════════════════════╗
+           ABOUT ME
+╚═══════════════════════════════════════╝
 
-    case 'projects':
-      openTab({ id: 'all-projects', name: 'Projects', type: 'all-projects' });
-      return '\x1b[32m✓ Opened projects overview\x1b[0m';
+Name:     ${portfolioData.about.name}
+Title:    ${portfolioData.about.title}
+Location: ${portfolioData.about.location}
+Email:    ${portfolioData.about.email}
+
+${portfolioData.about.bio}
+
+Use 'open about' to view in detail.
+`;
 
     case 'skills':
-      openTab({ id: 'skills', name: 'skills.json', type: 'skills', language: 'json' });
-      return '\x1b[32m✓ Opened skills.json in editor\x1b[0m';
+      const frontendSkills = portfolioData.skills.frontend.map(s => `  • ${s.name}: ${s.level}%`).join('\n');
+      const backendSkills = portfolioData.skills.backend.map(s => `  • ${s.name}: ${s.level}%`).join('\n');
+      const toolsSkills = portfolioData.skills.tools.map(s => `  • ${s.name}: ${s.level}%`).join('\n');
+      
+      return `
+╔═══════════════════════════════════════╗
+           MY SKILLS
+╚═══════════════════════════════════════╝
 
-    case 'experience':
-      openTab({ id: 'experience', name: 'experience.md', type: 'experience', language: 'markdown' });
-      return '\x1b[32m✓ Opened experience.md in editor\x1b[0m';
+Frontend Development:
+${frontendSkills}
+
+Backend Development:
+${backendSkills}
+
+Tools & Technologies:
+${toolsSkills}
+
+Use 'open skills' to view interactive version.
+`;
+
+    case 'projects':
+      const projectsList = portfolioData.projects.map((p, i) => 
+        `  ${i + 1}. ${p.title}${p.featured ? ' ⭐' : ''}\n     ${p.description || 'No description'}`
+      ).join('\n\n');
+      
+      return `
+╔═══════════════════════════════════════╗
+           MY PROJECTS
+╚═══════════════════════════════════════╝
+
+${projectsList}
+
+Use 'open projects' to view in detail.
+`;
 
     case 'contact':
-      openTab({ id: 'contact', name: 'contact.jsx', type: 'contact', language: 'react' });
-      return '\x1b[32m✓ Opened contact.jsx in editor\x1b[0m';
+      return `
+╔═══════════════════════════════════════╗
+         CONTACT INFORMATION
+╚═══════════════════════════════════════╝
 
-    case 'download':
-      if (args[0] === 'resume') {
-        return '\x1b[32m📥 Downloading resume...\x1b[0m\r\n\x1b[33mResume download will be available soon!\x1b[0m';
+Email:    ${portfolioData.about.email}
+GitHub:   ${portfolioData.about.github}
+LinkedIn: ${portfolioData.about.linkedin}
+WhatsApp: ${portfolioData.about.whatsapp}
+Location: ${portfolioData.about.location}
+
+Use 'open contact' to send a message.
+`;
+
+    case 'experience':
+      const expList = portfolioData.experience.map((exp, i) => 
+        `  ${i + 1}. ${exp.position}\n     ${exp.company} | ${exp.duration}\n     ${exp.location}`
+      ).join('\n\n');
+      
+      return `
+╔═══════════════════════════════════════╗
+         WORK EXPERIENCE
+╚═══════════════════════════════════════╝
+
+${expList}
+
+Use 'open experience' to view details.
+`;
+
+    case 'education':
+      const eduList = portfolioData.education.map((edu, i) => 
+        `  ${i + 1}. ${edu.degree}\n     ${edu.institution} | ${edu.year}\n     Grade: ${edu.grade}`
+      ).join('\n\n');
+      
+      return `
+╔═══════════════════════════════════════╗
+            EDUCATION
+╚═══════════════════════════════════════╝
+
+${eduList}
+`;
+
+    case 'open':
+      if (!params[0]) {
+        return `Usage: open [page]
+
+Available pages:
+  • about      - About me page
+  • skills     - Skills page
+  • projects   - Projects page
+  • contact    - Contact page
+  • experience - Experience page`;
       }
-      return '\x1b[31mError: Unknown file\x1b[0m\r\nUsage: download resume';
+      
+      if (!openTab) {
+        return 'Error: Navigation not available';
+      }
+      
+      const page = params[0].toLowerCase();
+      const pageMap = {
+        'about': { id: 'about', name: 'about.js', type: 'about', language: 'javascript' },
+        'skills': { id: 'skills', name: 'skills.json', type: 'skills', language: 'json' },
+        'projects': { id: 'all-projects', name: 'Projects', type: 'all-projects' },
+        'contact': { id: 'contact', name: 'contact.jsx', type: 'contact', language: 'react' },
+        'experience': { id: 'experience', name: 'experience.md', type: 'experience', language: 'markdown' },
+      };
+      
+      if (pageMap[page]) {
+        openTab(pageMap[page]);
+        return `✓ Opening ${page}...`;
+      }
+      
+      return `Error: Unknown page '${page}'
+
+Available pages: about, skills, projects, contact, experience`;
+
+    case 'ls':
+      return `
+Available Sections:
+  📁 about/          About me
+  📁 skills/         Technical skills
+  📁 projects/       My projects
+  📁 contact/        Contact information
+  📁 experience/     Work experience
+  📁 education/      Education background
+  📄 README.md       Portfolio information
+`;
+
+    case 'whoami':
+      return `${portfolioData.about.name} - ${portfolioData.about.title}`;
+
+    case 'date':
+      return new Date().toString();
+
+    case 'echo':
+      return params.join(' ') || '';
+
+    case 'clear':
+      return 'CLEAR_SCREEN';
+
+    case 'pwd':
+      return '/home/portfolio';
+
+    case 'cat':
+      if (params[0] === 'README.md') {
+        return `
+# ${portfolioData.about.name}'s Portfolio
+
+Welcome to my interactive portfolio terminal!
+
+## About
+I'm a ${portfolioData.about.title} based in ${portfolioData.about.location}.
+
+## Quick Start
+Type 'help' to see all available commands.
+Type 'open [page]' to navigate to different sections.
+
+## Features
+✓ Interactive Terminal
+✓ VS Code Theme
+✓ 15 Color Themes
+✓ Responsive Design
+✓ Real-time Updates
+
+Type 'about' to learn more about me!
+`;
+      }
+      return `cat: ${params[0] || ''}: No such file or directory`;
 
     case 'github':
       window.open(portfolioData.about.github, '_blank');
-      return `\x1b[32m🚀 Opening GitHub profile...\x1b[0m\r\n${portfolioData.about.github}`;
+      return `✓ Opening GitHub profile...`;
 
     case 'linkedin':
       window.open(portfolioData.about.linkedin, '_blank');
-      return `\x1b[32m🚀 Opening LinkedIn profile...\x1b[0m\r\n${portfolioData.about.linkedin}`;
-
-    case 'email':
-      window.location.href = `mailto:${portfolioData.about.email}`;
-      return `\x1b[32m📧 Opening email client...\x1b[0m\r\n${portfolioData.about.email}`;
-
-    // Easter Eggs
-    case 'hack':
-      return easterEggHack();
-
-    case 'matrix':
-      return '\x1b[32mEntering the Matrix...\x1b[0m\r\n\x1b[32m01001101 01000001 01010100 01010010 01001001 01011000\x1b[0m\r\n\x1b[32mWake up, Neo...\x1b[0m';
-
-    case 'sudo':
-      if (args.join(' ') === 'make-me-coffee') {
-        return '☕ \x1b[33mBrewing coffee...\x1b[0m\r\n\x1b[32m✓ Your coffee is ready!\x1b[0m ☕';
-      }
-      return '\x1b[31m[sudo] password for user:\x1b[0m (Nice try! 😄)';
+      return `✓ Opening LinkedIn profile...`;
 
     default:
-      return `\x1b[31mCommand not found: ${command}\x1b[0m\r\nType '\x1b[32mhelp\x1b[0m' to see available commands.`;
+      return `Command not found: ${command}
+
+Type 'help' for available commands.`;
   }
 };
-
-const listFiles = (currentDirectory) => {
-  let output = '\x1b[1;36mFiles and Folders:\x1b[0m\r\n\r\n';
-
-  if (currentDirectory === '/portfolio/projects') {
-    const projectsFolder = fileSystem.children.find(item => item.name === 'projects');
-    if (projectsFolder && projectsFolder.children) {
-      projectsFolder.children.forEach((file) => {
-        const icon = getFileIcon(file.language);
-        output += `  ${icon}  ${file.name}\r\n`;
-      });
-    }
-  } else {
-    fileSystem.children.forEach((item) => {
-      if (item.type === 'folder') {
-        output += `  \x1b[1;34m📁 ${item.name}/\x1b[0m\r\n`;
-      } else {
-        const icon = getFileIcon(item.language);
-        output += `  ${icon}  ${item.name}\r\n`;
-      }
-    });
-  }
-
-  return output;
-};
-
-const displayFileContent = (filename, currentDirectory) => {
-  const file = findFile(filename, currentDirectory);
-
-  if (!file) {
-    return `\x1b[31mError: File '${filename}' not found\x1b[0m`;
-  }
-
-  if (file.type === 'folder') {
-    return `\x1b[31mError: '${filename}' is a directory\x1b[0m\r\nUse 'cd ${filename}' to enter the directory`;
-  }
-
-  return `\x1b[36m=== ${file.name} ===\x1b[0m\r\n\r\n${getFilePreview(file)}`;
-};
-
-const openFile = (filename, openTab, currentDirectory) => {
-  const file = findFile(filename, currentDirectory);
-
-  if (!file) {
-    const suggestions = [];
-
-    if (currentDirectory === '/portfolio/projects') {
-      const projectsFolder = fileSystem.children.find(item => item.name === 'projects');
-      if (projectsFolder && projectsFolder.children) {
-        projectsFolder.children.forEach(child => {
-          if (child.type === 'file') suggestions.push(child.name);
-        });
-      }
-    } else {
-      fileSystem.children.forEach(item => {
-        if (item.type === 'file') suggestions.push(item.name);
-        if (item.type === 'folder' && item.children) {
-          item.children.forEach(child => {
-            if (child.type === 'file') suggestions.push(child.name);
-          });
-        }
-      });
-    }
-
-    const inputLower = filename.toLowerCase();
-    const similar = suggestions.filter(s => {
-      const sLower = s.toLowerCase();
-      return sLower.includes(inputLower.substring(0, Math.min(4, inputLower.length))) ||
-        inputLower.includes(sLower.substring(0, Math.min(4, sLower.length))) ||
-        levenshteinDistance(inputLower, sLower) <= 3;
-    });
-
-    let output = `\x1b[31mError: File '${filename}' not found\x1b[0m\r\n`;
-
-    if (similar.length > 0) {
-      output += `\r\n\x1b[33m💡 Did you mean:\x1b[0m\r\n`;
-      similar.slice(0, 3).forEach(s => {
-        output += `  \x1b[32m${s}\x1b[0m\r\n`;
-      });
-    } else {
-      output += `\r\n\x1b[33mAvailable files:\x1b[0m\r\n`;
-      suggestions.slice(0, 8).forEach(s => {
-        output += `  ${s}\r\n`;
-      });
-    }
-
-    return output;
-  }
-
-  if (file.type === 'folder') {
-    return `\x1b[31mError: '${filename}' is a directory\x1b[0m\r\nUse 'cd ${filename}' to enter the directory`;
-  }
-
-  openTab({
-    id: file.id,
-    name: file.name,
-    type: file.content,
-    language: file.language,
-    projectId: file.projectId || null
-  });
-
-  return `\x1b[32m✓ Opened ${file.name} in editor\x1b[0m`;
-};
-
-const changeDirectory = (dirname, setCurrentDirectory, currentDirectory) => {
-  const normalizedDir = dirname.toLowerCase().trim().replace(/\/$/, '');
-
-  if (normalizedDir === 'projects') {
-    setCurrentDirectory('/portfolio/projects');
-    return `\x1b[33mEntered projects directory\x1b[0m\r\n\r\nAvailable projects:\r\n${listProjectFiles()}`;
-  }
-
-  if (normalizedDir === '..' || normalizedDir === '../') {
-    if (currentDirectory === '/portfolio/projects') {
-      setCurrentDirectory('/portfolio');
-      return '\x1b[33mReturned to /portfolio\x1b[0m';
-    }
-    return '\x1b[33mAlready at root directory\x1b[0m';
-  }
-
-  if (normalizedDir === '~' || normalizedDir === '/') {
-    setCurrentDirectory('/portfolio');
-    return '\x1b[33mReturned to /portfolio\x1b[0m';
-  }
-
-  return `\x1b[31mError: Directory '${dirname}' not found\x1b[0m`;
-};
-
-const changeTheme = (themeName, setTheme) => {
-  const validThemes = [
-    'githubDark', 'dracula', 'oneDark', 'monokai', 'nightOwl',
-    'synthwave', 'cobalt2', 'palenight', 'shadesOfPurple', 'ayuDark',
-    'tokyoNight', 'nord', 'gruvbox', 'oceanicNext', 'horizon'
-  ];
-
-  if (!validThemes.includes(themeName)) {
-    return `\x1b[31mError: Invalid theme '${themeName}'\x1b[0m\r\n\r\n\x1b[33mType 'theme' to see all available themes\x1b[0m`;
-  }
-
-  setTheme(themeName);
-  return `\x1b[32m✓ Theme changed to ${themeName}\x1b[0m\r\n\x1b[90mTheme applied successfully!\x1b[0m`;
-};
-
-const listProjects = (openTab) => {
-  let output = '\x1b[1;36mProjects:\x1b[0m\r\n\r\n';
-
-  portfolioData.projects.forEach((project, index) => {
-    output += `\x1b[1;32m${index + 1}. ${project.title}\x1b[0m\r\n`;
-    output += `   ${project.description.substring(0, 80)}...\r\n`;
-    output += `   Tech: ${project.techStack.join(', ')}\r\n`;
-
-    const projectsFolder = fileSystem.children.find(item => item.name === 'projects');
-    const projectFile = projectsFolder?.children.find(file => file.projectId === project.id);
-
-    if (projectFile) {
-      output += `   \x1b[90mCommand: open ${projectFile.name}\x1b[0m\r\n\r\n`;
-    } else {
-      output += '\r\n';
-    }
-  });
-
-  return output;
-};
-
-const listProjectFiles = () => {
-  const projectsFolder = fileSystem.children.find(item => item.name === 'projects');
-  let output = '';
-
-  if (projectsFolder && projectsFolder.children) {
-    projectsFolder.children.forEach(file => {
-      output += `  ⚛️  ${file.name}\r\n`;
-    });
-  }
-
-  return output;
-};
-
-const findFile = (filename, currentDirectory) => {
-  const normalizedFilename = filename.toLowerCase().trim();
-
-  const matchesFilename = (item) => {
-    return item.name.toLowerCase() === normalizedFilename;
-  };
-
-  if (currentDirectory === '/portfolio/projects') {
-    const projectsFolder = fileSystem.children.find(item => item.name === 'projects');
-    if (projectsFolder && projectsFolder.children) {
-      const file = projectsFolder.children.find(matchesFilename);
-      if (file) return file;
-    }
-  }
-
-  let file = fileSystem.children.find(matchesFilename);
-  if (file) return file;
-
-  for (const item of fileSystem.children) {
-    if (item.type === 'folder' && item.children) {
-      file = item.children.find(matchesFilename);
-      if (file) return file;
-    }
-  }
-
-  return null;
-};
-
-const getFileIcon = (language) => {
-  const icons = {
-    javascript: '📄',
-    react: '⚛️',
-    json: '{}',
-    markdown: '📝',
-    typescript: '📘',
-    pdf: '📕'
-  };
-  return icons[language] || '📄';
-};
-
-const getFilePreview = (file) => {
-  switch (file.content) {
-    case 'about':
-      return `Name: ${portfolioData.about.name}\r\nTitle: ${portfolioData.about.title}\r\nLocation: ${portfolioData.about.location}\r\n\r\nBio: ${portfolioData.about.bio}`;
-    case 'skills':
-      return `Frontend: ${portfolioData.skills.frontend.map(s => s.name).join(', ')}\r\nBackend: ${portfolioData.skills.backend.map(s => s.name).join(', ')}\r\nTools: ${portfolioData.skills.tools.map(s => s.name).join(', ')}`;
-    case 'project':
-      return 'Project file - use "open" command to view in editor';
-    case 'experience':
-      return `Experience:\r\n${portfolioData.experience.map(exp => `${exp.position} at ${exp.company}`).join('\r\n')}`;
-    case 'contact':
-      return `Email: ${portfolioData.about.email}\r\nGitHub: ${portfolioData.about.github}\r\nLinkedIn: ${portfolioData.about.linkedin}`;
-    case 'resume':
-      return 'Resume PDF - use "download resume" command';
-    default:
-      return 'File content preview...';
-  }
-};
-
-const levenshteinDistance = (str1, str2) => {
-  const len1 = str1.length;
-  const len2 = str2.length;
-  const matrix = [];
-
-  for (let i = 0; i <= len1; i++) {
-    matrix[i] = [i];
-  }
-
-  for (let j = 0; j <= len2; j++) {
-    matrix[0][j] = j;
-  }
-
-  for (let i = 1; i <= len1; i++) {
-    for (let j = 1; j <= len2; j++) {
-      if (str1.charAt(i - 1) === str2.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(
-          matrix[i - 1][j - 1] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
-        );
-      }
-    }
-  }
-
-  return matrix[len1][len2];
-};
-
-const easterEggHack = () => {
-  return `\r
-\x1b[32m[*] Initializing hack sequence...\x1b[0m\r
-\x1b[32m[*] Connecting to mainframe...\x1b[0m\r
-\x1b[32m[*] Bypassing firewall...\x1b[0m\r
-\x1b[32m[*] Accessing database...\x1b[0m\r
-\x1b[33m[!] ERROR: Access Denied\x1b[0m\r
-\x1b[31m[!] Just kidding! I'm a developer, not a hacker 😄\x1b
-
-`
-}

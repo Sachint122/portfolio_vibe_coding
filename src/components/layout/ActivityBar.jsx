@@ -6,12 +6,13 @@ import {
   VscSettingsGear,
   VscColorMode,
   VscMenu,
-  VscClose
+  VscClose,
+  VscTerminal
 } from 'react-icons/vsc';
 import usePortfolioStore from '../../store/portfolioStore';
 
 const ActivityBar = () => {
-  const { activeSidebar, setActiveSidebar } = usePortfolioStore();
+  const { activeSidebar, setActiveSidebar, toggleTerminal, terminalVisible } = usePortfolioStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const menuItems = [
@@ -19,12 +20,18 @@ const ActivityBar = () => {
     { id: 'git', icon: VscSourceControl, label: 'Source Control' },
     { id: 'extensions', icon: VscExtensions, label: 'Extensions' },
     { id: 'themes', icon: VscColorMode, label: 'Themes' },
+    { id: 'terminal', icon: VscTerminal, label: 'Terminal', isTerminal: true },
     { id: 'settings', icon: VscSettingsGear, label: 'Settings' },
   ];
   
-  const handleMenuClick = (id) => {
-    setActiveSidebar(id);
-    setMobileMenuOpen(false);
+  const handleMenuClick = (id, isTerminal) => {
+    if (isTerminal) {
+      toggleTerminal();
+      setMobileMenuOpen(false);
+    } else {
+      setActiveSidebar(id);
+      setMobileMenuOpen(false);
+    }
   };
   
   return (
@@ -33,12 +40,12 @@ const ActivityBar = () => {
       <div className="hidden md:flex w-[50px] bg-vscode-activitybar border-r border-vscode-border flex-col items-center py-2 gap-1">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = activeSidebar === item.id;
+          const isActive = item.isTerminal ? terminalVisible : activeSidebar === item.id;
           
           return (
             <button
               key={item.id}
-              onClick={() => setActiveSidebar(item.id)}
+              onClick={() => item.isTerminal ? toggleTerminal() : setActiveSidebar(item.id)}
               className={`
                 w-12 h-12 flex items-center justify-center rounded-lg transition-all
                 ${isActive 
@@ -72,12 +79,12 @@ const ActivityBar = () => {
           <div className="md:hidden fixed top-10 left-4 bg-vscode-sidebar border border-vscode-border rounded-lg shadow-2xl z-50 p-2 min-w-[200px]">
             {menuItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeSidebar === item.id;
+              const isActive = item.isTerminal ? terminalVisible : activeSidebar === item.id;
               
               return (
                 <button
                   key={item.id}
-                  onClick={() => handleMenuClick(item.id)}
+                  onClick={() => handleMenuClick(item.id, item.isTerminal)}
                   className={`
                     w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all mb-1
                     ${isActive 

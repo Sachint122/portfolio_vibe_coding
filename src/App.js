@@ -5,7 +5,7 @@ import { applyTheme, getThemeFromStorage } from './utils/themes';
 import './App.css';
 
 function App() {
-  const { toggleTerminal } = usePortfolioStore();
+  const { toggleTerminal,currentTheme } = usePortfolioStore();
   
   useEffect(() => {
     const handleKeyPress = (e) => {
@@ -28,6 +28,11 @@ function App() {
     const savedTheme = getThemeFromStorage();
     applyTheme(savedTheme);
   }, []);
+  
+  useEffect(() => {
+    // Apply theme when it changes
+    applyTheme(currentTheme);
+  }, [currentTheme]);
   
    return (
     <div className="App">
