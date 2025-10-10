@@ -16,8 +16,8 @@ const VSCodeLayout = () => {
       {/* Title Bar */}
       <TitleBar />
       
-      {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
+      {/* Main Content - Add padding bottom on mobile for StatusBar */}
+      <div className="flex flex-1 overflow-hidden pb-[20px] md:pb-0">
         {/* Activity Bar (Desktop Only) */}
         <ActivityBar />
         
@@ -29,12 +29,12 @@ const VSCodeLayout = () => {
           {/* Tab Bar */}
           <TabBar />
           
-          {/* Code Editor - Scrollable */}
+          {/* Code Editor - Scrollable with bottom padding on mobile */}
           <div className={`flex-1 overflow-hidden w-full ${terminalVisible ? 'md:h-1/2' : ''}`}>
             <CodeEditor />
           </div>
           
-          {/* Terminal - Desktop: Split view, Mobile: Bottom sheet */}
+          {/* Terminal - Desktop: Split view, Mobile: Overlay */}
           {terminalVisible && (
             <>
               {/* Desktop Terminal */}
@@ -42,17 +42,23 @@ const VSCodeLayout = () => {
                 <TerminalEmulator />
               </div>
               
-              {/* Mobile Terminal - Bottom Sheet (Above StatusBar) */}
-              <div className="md:hidden fixed inset-x-0 z-30 animate-slideUp" style={{ bottom: '20px', height: 'calc(50% - 20px)' }}>
-                {/* Backdrop/Overlay for dimming */}
+              {/* Mobile Terminal - Above StatusBar */}
+              <div 
+                className="md:hidden fixed inset-x-0 z-30 animate-slideUp" 
+                style={{ 
+                  bottom: '20px', 
+                  height: 'calc(50vh - 20px)',
+                  maxHeight: 'calc(100vh - 100px)' 
+                }}
+              >
+                {/* Backdrop/Overlay */}
                 <div 
-                  className="fixed inset-0 bg-black/30 -z-10"
+                  className="fixed inset-0 bg-black/50 -z-10"
                   onClick={toggleTerminal}
-                  style={{ bottom: '20px' }}
                 />
                 
                 {/* Terminal Container */}
-                <div className="h-full bg-vscode-bg border-t-2 border-vscode-accent shadow-2xl">
+                <div className="h-full bg-vscode-bg border-t-2 border-vscode-accent shadow-2xl rounded-t-lg">
                   <TerminalEmulator />
                 </div>
               </div>
@@ -61,8 +67,8 @@ const VSCodeLayout = () => {
         </div>
       </div>
       
-      {/* Status Bar - Always visible with higher z-index */}
-      <div className="relative z-50">
+      {/* Status Bar - Fixed at bottom on mobile */}
+      <div className="fixed md:relative bottom-0 left-0 right-0 z-50">
         <StatusBar />
       </div>
     </div>

@@ -46,7 +46,7 @@ const CodeEditor = () => {
   };
   
   return (
-    <div className="h-full w-full overflow-y-auto bg-vscode-bg">
+      <div className="h-full w-full overflow-y-auto bg-vscode-bg pb-[80px] md:pb-0">
       {renderContent()}
     </div>
   );
