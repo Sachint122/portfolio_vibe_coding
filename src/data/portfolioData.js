@@ -1,13 +1,13 @@
 export const portfolioData = {
   about: {
     name: "Sachin Tiwari",
-    title: "MERN Stack Developer",
+    title: "Backend Developer (Node.js)",
     location: "Varanasi, India",
     age: 26,
-    bio: "Passionate MERN Stack Developer with expertise in building scalable web applications using MongoDB, Express.js, React.js, and Node.js. Experienced in creating responsive user interfaces and robust backend systems.",
+    bio: "Backend developer specializing in building scalable APIs, secure authentication systems, and real-world integrations like payment gateways and Google OAuth. Experienced in designing production-level applications using Node.js, Express.js, and MySQL with a strong focus on performance, security, and clean architecture.",
     email: "sachintiwari.751858@gmail.com",
     phone: "+91-8081731062",
-    github: "https://github.com/sachint122",
+    github: "https://github.com/Sachint122",
     linkedin: "https://www.linkedin.com/in/sachin-tiwari-javafullstack/",
     whatsapp: "+918081731062"
   },
@@ -28,36 +28,51 @@ export const portfolioData = {
     {
       id: 'resume-backend',
       title: 'Backend Developer',
-      description: 'Expert in Node.js, Express, and database management',
-      driveId: '1zIgxSWQDHPWpIWEH25P49_TRoVwI6SLZ', // Replace with your Google Drive File ID
+      description: 'Backend developer specializing in scalable APIs, secure authentication, payment gateway integration, and production-level system design',
+      driveId: '1PXfqCajFwoabpyePAcP0K5okpEz742IO',
       icon: '⚙️',
       color: 'green',
-      tags: ['Node.js', 'MongoDB', 'REST API', 'Express'],
-      featured: false,
-      lastUpdated: '2025-01-12'
+      tags: [
+        'Node.js',
+        'Express.js',
+        'MySQL',
+        'REST API',
+        'JWT Authentication',
+        'Razorpay Integration',
+        'Google OAuth',
+        'API Security',
+        'Postman',
+        'System Design'
+      ],
+      featured: true,
+      lastUpdated: '2026-04-23'
     }
   ],
 
   skills: {
     frontend: [
-      { name: "React.js", level: 80 },
+      { name: "React.js", level: 75 },
       { name: "HTML5", level: 90 },
-      { name: "CSS3", level: 70 },
-      { name: "JavaScript", level: 92 },
-      { name: "Tailwind CSS", level: 85 },
+      { name: "CSS3", level: 75 },
+      { name: "JavaScript", level: 88 },
+      { name: "Tailwind CSS", level: 80 }
     ],
     backend: [
-      { name: "Node.js", level: 88 },
+      { name: "Node.js", level: 90 },
       { name: "Express.js", level: 90 },
       { name: "MongoDB", level: 85 },
+      { name: "MySQL", level: 85 },
       { name: "REST API", level: 92 },
-      { name: "JWT Auth", level: 80 }
+      { name: "JWT Authentication", level: 85 },
+      { name: "Razorpay Integration", level: 80 },
+      { name: "Google OAuth", level: 75 },
+      { name: "API Security", level: 80 }
     ],
     tools: [
       { name: "Git", level: 90 },
       { name: "VS Code", level: 95 },
-      { name: "Postman", level: 85 },
-      { name: "npm/yarn", level: 90 },
+      { name: "Postman", level: 90 },
+      { name: "npm", level: 90 }
     ]
   },
 
@@ -72,7 +87,7 @@ export const portfolioData = {
         "reusme add and delete",
         "Custom email templates add and delete",
         "history management delete serch and export",
-        
+
       ],
       github: "https://github.com/Sachint122/Mail_System/tree/main/mail_system_live",
       live: "https://mail-system-five.vercel.app/",
@@ -228,6 +243,23 @@ export const portfolioData = {
         "Assisted in optimizing workflow and improving operational efficiency",
         "Collaborated with team members to meet daily production targets",
         "Received the FTC Reward for exceptional performance"
+      ]
+    },
+    {
+      id: 3,
+      company: "Deffotech",
+      position: "Backend Developer Intern",
+      location: "Remote",
+      duration: "Novemeber 2025 - February 2026",
+      description: "Worked as a Backend Developer focusing on building scalable APIs, authentication systems, and real-world production-level features including payment integration and secure user management.",
+      responsibilities: [
+        "Developed and maintained RESTful APIs using Node.js and Express.js",
+        "Implemented JWT-based authentication and role-based access control",
+        "Integrated Razorpay payment gateway for secure online transactions",
+        "Designed and optimized database schemas using MySQL",
+        "Built and managed multiple production-level projects including E-commerce, Internship Management, and File Handling systems",
+        "Handled API testing, debugging, and performance optimization using Postman",
+        "Collaborated with team to deliver scalable and maintainable backend solutions"
       ]
     }
   ],

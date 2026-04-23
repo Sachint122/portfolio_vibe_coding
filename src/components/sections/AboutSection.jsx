@@ -74,7 +74,7 @@ const AboutSection = () => {
             </div>
             <div className="mt-3 flex flex-wrap justify-center md:justify-start gap-2">
               <span className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
-                🚀 MERN Stack
+                🚀 Node.js Stack
               </span>
               <span className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
                 ⚡ AI Enthusiast

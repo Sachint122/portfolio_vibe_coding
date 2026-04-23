@@ -200,7 +200,7 @@ const SkillsSection = () => {
               </p>
               <div className="flex flex-wrap gap-2">
                 <span className="px-2 md:px-3 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-full text-xs md:text-sm">
-                  MERN Stack
+                  Node.js Stack
                 </span>
                 <span className="px-2 md:px-3 py-1 bg-purple-500/10 border border-purple-500/30 text-purple-400 rounded-full text-xs md:text-sm">
                   RESTful APIs

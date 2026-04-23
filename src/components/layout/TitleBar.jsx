@@ -10,7 +10,7 @@ const TitleBar = () => {
       return {
         icon: '💼',
         title: 'Sachin Tiwari - Portfolio',
-        subtitle: 'MERN Stack Developer'
+        subtitle: 'Backend Developer (Node.js)'
       };
     }
     

@@ -124,7 +124,7 @@ const ProjectsSection = ({ projectId }) => {
       <div className="mb-6 md:mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-vscode-accent mb-2 md:mb-3">My Projects</h1>
         <p className="text-vscode-text text-sm md:text-lg">
-          Explore my portfolio of web applications built with the MERN stack
+          Explore my portfolio of web applications built with the Node.js stack
         </p>
       </div>
       
