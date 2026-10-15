@@ -73,15 +73,16 @@ const AboutSection = () => {
               <span>{about.age} years old</span>
             </div>
             <div className="mt-3 flex flex-wrap justify-center md:justify-start gap-2">
-              <span className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
-                🚀 Node.js Stack
-              </span>
-              <span className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
-                ⚡ AI Enthusiast
-              </span>
-              <span className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
-                💡 Problem Solver
-              </span>
+              {(about.badges || [
+                "🚀 MERN & Full Stack",
+                "⚛️ React.js & Node.js",
+                "🏢 Enterprise ERP Systems",
+                "⚡ CI/CD & Cloud Deployment"
+              ]).map((badge, i) => (
+                <span key={i} className="px-2 md:px-3 py-1 bg-white/20 rounded-full text-xs md:text-sm backdrop-blur-sm">
+                  {badge}
+                </span>
+              ))}
             </div>
           </div>
         </div>
@@ -98,11 +99,42 @@ const AboutSection = () => {
         </p>
         <div className="border-t border-vscode-border pt-3 md:pt-4 mt-3 md:mt-4">
           <p className="text-vscode-text/80 leading-relaxed text-sm md:text-base">
-            <VscCode className="inline text-vscode-accent" size={18} /> This portfolio is a testament to modern web development,
-            combining cutting-edge technologies with AI-assisted development. Every component was crafted with precision and creativity.
+            <VscCode className="inline text-vscode-accent" size={18} /> Currently working as a Web Developer at Dindia, engineering full-stack enterprise ERP systems, role-based workflows, and responsive commercial web platforms.
           </p>
         </div>
       </div>
+
+      {/* Core Expertise & Highlights */}
+      {about.highlights && about.highlights.length > 0 && (
+        <div className="bg-vscode-hover border border-vscode-border rounded-lg p-4 md:p-6 mb-4 md:mb-6 hover:border-vscode-accent transition-all">
+          <h3 className="text-lg md:text-xl font-bold text-vscode-accent mb-3 md:mb-4 flex items-center gap-2">
+            <span>🎯</span>
+            Core Expertise & Focus Areas
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+            {about.highlights.map((item, index) => (
+              <div
+                key={index}
+                className="p-3 md:p-4 bg-vscode-bg border border-vscode-border rounded-lg hover:border-vscode-accent transition-all group"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl md:text-3xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </span>
+                  <div>
+                    <h4 className="font-semibold text-vscode-text text-sm md:text-base mb-1 group-hover:text-vscode-accent transition-colors">
+                      {item.title}
+                    </h4>
+                    <p className="text-vscode-text/70 text-xs md:text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Tech Stack Highlights */}
       <div className="bg-gradient-to-r from-vscode-hover to-vscode-bg border border-vscode-border rounded-lg p-4 md:p-6 mb-4 md:mb-6">
@@ -243,7 +275,7 @@ const AboutSection = () => {
           <div className="absolute -inset-1 bg-gradient-to-r from-vscode-accent to-blue-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
           <div className="relative flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-vscode-accent text-white rounded-lg font-medium text-base md:text-lg hover:opacity-90 transition-opacity shadow-lg">
             <span>📄</span>
-            <span>View My Resumes</span>
+            <span>View Resume</span>
             <VscRocket className="group-hover:translate-x-1 transition-transform" />
           </div>
         </button>

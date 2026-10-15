@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { VscFolder, VscFolderOpened, VscFile, VscChevronRight, VscChevronDown } from 'react-icons/vsc';
 import { fileSystem } from '../../data/fileSystem';
 import usePortfolioStore from '../../store/portfolioStore';
@@ -6,8 +6,8 @@ import usePortfolioStore from '../../store/portfolioStore';
 const FileExplorer = () => {
   const { expandedFolders, toggleFolder, openTab, activeTabId } = usePortfolioStore();
   
-  const getFileIcon = (language) => {
-    const iconMap = {
+  const iconMap = useMemo(() => {
+    return {
       javascript: { icon: '📄', color: 'text-yellow-400', bg: 'bg-yellow-400/10' },
       react: { icon: '⚛️', color: 'text-cyan-400', bg: 'bg-cyan-400/10' },
       json: { icon: '{}', color: 'text-green-400', bg: 'bg-green-400/10' },
@@ -15,6 +15,9 @@ const FileExplorer = () => {
       typescript: { icon: '📘', color: 'text-blue-500', bg: 'bg-blue-500/10' },
       pdf: { icon: '📕', color: 'text-red-400', bg: 'bg-red-400/10' }
     };
+  }, []);
+  
+  const getFileIcon = (language) => {
     return iconMap[language] || { icon: '📄', color: 'text-gray-400', bg: 'bg-gray-400/10' };
   };
   

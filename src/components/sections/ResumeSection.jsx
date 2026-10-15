@@ -32,20 +32,23 @@ const ResumeSection = ({ resumeId }) => {
     return colorMap[color] || colorMap.blue;
   };
   
-  // Single Resume Detail View
-  if (resumeId) {
-    const resume = resumes.find(r => r.id === resumeId);
+  // Single Resume Detail View (shows if resumeId is provided or only one resume exists)
+  const isSingle = Boolean(resumeId || resumes?.length === 1);
+  if (isSingle && resumes?.length > 0) {
+    const resume = resumeId ? resumes.find(r => r.id === resumeId) : resumes[0];
     
     if (!resume) {
       return (
         <div className="p-4 md:p-8 max-w-5xl mx-auto text-center">
           <p className="text-red-500 text-lg md:text-xl mb-3 md:mb-4">Resume not found</p>
-          <button
-            onClick={() => openTab({ id: 'all-resumes', name: 'Resumes', type: 'all-resumes' })}
-            className="px-4 md:px-6 py-2 bg-vscode-accent text-white rounded-lg hover:opacity-90 text-sm md:text-base"
-          >
-            View All Resumes
-          </button>
+          {resumes.length > 1 && (
+            <button
+              onClick={() => openTab({ id: 'all-resumes', name: 'Resumes', type: 'all-resumes' })}
+              className="px-4 md:px-6 py-2 bg-vscode-accent text-white rounded-lg hover:opacity-90 text-sm md:text-base"
+            >
+              View All Resumes
+            </button>
+          )}
         </div>
       );
     }
@@ -62,14 +65,16 @@ const ResumeSection = ({ resumeId }) => {
     
     return (
       <div className="p-4 md:p-8 max-w-6xl mx-auto">
-        {/* Back Button */}
-        <button
-          onClick={() => openTab({ id: 'all-resumes', name: 'Resumes', type: 'all-resumes' })}
-          className="flex items-center gap-2 mb-6 md:mb-8 text-vscode-accent hover:underline group text-sm md:text-base"
-        >
-          <VscArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span>Back to All Resumes</span>
-        </button>
+        {/* Back Button (only shown if multiple resumes exist) */}
+        {resumes.length > 1 && (
+          <button
+            onClick={() => openTab({ id: 'all-resumes', name: 'Resumes', type: 'all-resumes' })}
+            className="flex items-center gap-2 mb-6 md:mb-8 text-vscode-accent hover:underline group text-sm md:text-base"
+          >
+            <VscArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            <span>Back to All Resumes</span>
+          </button>
+        )}
         
         {/* Resume Header */}
         <div className="text-center mb-8 md:mb-12">

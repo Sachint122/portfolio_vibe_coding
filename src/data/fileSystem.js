@@ -11,6 +11,33 @@ export const fileSystem = {
       expanded: false,
       children: [
         {
+          id: 'project-dindia-erp',
+          name: 'dindia-erp-system.jsx',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'dindia-erp-system'
+        },
+        {
+          id: 'project-dindia-infratech',
+          name: 'dindia-infratech.jsx',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'dindia-infratech'
+        },
+        {
+          id: 'project-dindia-website',
+          name: 'dindia-website.jsx',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'dindia-website'
+        },
+        {
           id: 'project-send-mail',
           name: 'send-mail-app.js',
           type: 'file',
@@ -21,22 +48,14 @@ export const fileSystem = {
         },
         {
           id: 'project-dti',
-          name: 'destination-technology-institute.html',
+          name: 'destination-technologies.jsx',
           type: 'file',
           language: 'react',
           icon: 'react',
           content: 'project',
           projectId: 'dti-website'
         },
-        {
-          id: 'project-rajasthani-fufi',
-          name: 'rajasthani-fufi.jsx',
-          type: 'file',
-          language: 'react',
-          icon: 'react',
-          content: 'project',
-          projectId: 'rajasthani-fufi'
-        },
+
         {
           id: 'project-home-automation',
           name: 'home-automation.java',

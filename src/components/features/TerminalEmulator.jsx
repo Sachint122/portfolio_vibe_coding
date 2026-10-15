@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { VscChromeClose } from 'react-icons/vsc';
 import usePortfolioStore from '../../store/portfolioStore';
 import { parseCommand } from '../../utils/commandParser';
 
-const TerminalEmulator = () => {
+const TerminalEmulator = React.memo(() => {
   const [history, setHistory] = useState([
-    { type: 'output', text: '╔══════════════════════════════════╗' },
+    { type: 'output', text: '╔═════════════════════════════════╗' },
     { type: 'output', text: '║  Portfolio Terminal v1.0  ║' },
-    { type: 'output', text: '╚══════════════════════════════════╝' },
+    { type: 'output', text: '╚═════════════════════════════════╝' },
     { type: 'output', text: '' },
     { type: 'output', text: 'Type "help" for commands' },
     { type: 'output', text: '' },
@@ -17,11 +17,7 @@ const TerminalEmulator = () => {
   const terminalEndRef = useRef(null);
   const { toggleTerminal, openTab, setActiveSidebar } = usePortfolioStore();
   
-  useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [history]);
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     if (!input.trim()) return;
     
@@ -44,7 +40,11 @@ const TerminalEmulator = () => {
     
     setHistory(newHistory);
     setInput('');
-  };
+  }, [history, input, openTab, setActiveSidebar, parseCommand]);
+  
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [history]);
   
   return (
     <div className="h-full flex flex-col bg-vscode-bg">
@@ -106,6 +106,6 @@ const TerminalEmulator = () => {
       </div>
     </div>
   );
-};
+});
 
 export default TerminalEmulator;

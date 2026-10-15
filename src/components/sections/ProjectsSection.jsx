@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '../../data/portfolioData';
 import { VscGithub, VscLinkExternal, VscCheck } from 'react-icons/vsc';
+import usePortfolioStore from '../../store/portfolioStore';
 
 const ProjectsSection = ({ projectId }) => {
+  const { openTab } = usePortfolioStore();
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
   // If projectId is provided, show single project
   if (projectId) {
     const project = portfolioData.projects.find(p => p.id === projectId);
@@ -18,6 +22,11 @@ const ProjectsSection = ({ projectId }) => {
         </div>
       );
     }
+
+    const imageList = project.images && project.images.length > 0
+      ? project.images
+      : (project.image ? [project.image] : []);
+    const activeImage = imageList[activeImageIndex] || imageList[0] || null;
     
     return (
       <div className="p-4 md:p-8 max-w-5xl mx-auto">
@@ -32,9 +41,49 @@ const ProjectsSection = ({ projectId }) => {
           </p>
         </div>
         
-        {/* Project Image/Banner */}
-        <div className="mb-6 md:mb-8 h-48 md:h-64 bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 rounded-lg flex items-center justify-center text-6xl md:text-8xl border border-vscode-border">
-          🚀
+        {/* Project Image Gallery Banner */}
+        <div className="mb-6 md:mb-8">
+          <div className="max-h-[460px] rounded-lg overflow-hidden border border-vscode-border bg-vscode-hover flex items-center justify-center shadow-2xl relative group">
+            {activeImage ? (
+              <img
+                src={activeImage}
+                alt={`${project.title} preview ${activeImageIndex + 1}`}
+                className="w-full h-auto max-h-[460px] object-cover object-top hover:scale-[1.01] transition-transform duration-500"
+              />
+            ) : (
+              <div className="h-48 md:h-64 w-full bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center text-6xl md:text-8xl">
+                🚀
+              </div>
+            )}
+            {imageList.length > 1 && (
+              <div className="absolute bottom-3 right-3 px-3 py-1 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 shadow-lg">
+                📷 {activeImageIndex + 1} / {imageList.length}
+              </div>
+            )}
+          </div>
+
+          {/* Interactive Thumbnails for multiple images */}
+          {imageList.length > 1 && (
+            <div className="flex gap-2 md:gap-3 mt-3 overflow-x-auto pb-2">
+              {imageList.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveImageIndex(idx)}
+                  className={`relative flex-shrink-0 w-24 h-16 md:w-32 md:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                    idx === activeImageIndex
+                      ? 'border-vscode-accent ring-2 ring-vscode-accent/50 scale-105'
+                      : 'border-vscode-border opacity-70 hover:opacity-100 hover:border-vscode-accent/40'
+                  }`}
+                >
+                  <img
+                    src={img}
+                    alt={`Screenshot ${idx + 1}`}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
         
         {/* Tech Stack */}
@@ -135,9 +184,32 @@ const ProjectsSection = ({ projectId }) => {
               key={proj.id}
               className="bg-vscode-hover border border-vscode-border rounded-lg overflow-hidden hover:border-vscode-accent transition-all hover:shadow-lg"
             >
-              {/* Project Image Placeholder */}
-              <div className="h-40 md:h-48 bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center text-5xl md:text-6xl border-b border-vscode-border">
-                {proj.featured ? '⭐' : '🚀'}
+              {/* Project Image */}
+              <div
+                className="h-44 md:h-52 relative overflow-hidden bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center border-b border-vscode-border cursor-pointer group"
+                onClick={() => openTab({
+                  id: `project-${proj.id}`,
+                  name: `${proj.id}.jsx`,
+                  type: 'project',
+                  projectId: proj.id
+                })}
+              >
+                {proj.image ? (
+                  <img
+                    src={proj.image}
+                    alt={proj.title}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <span className="text-5xl md:text-6xl group-hover:scale-110 transition-transform">
+                    {proj.featured ? '⭐' : '🚀'}
+                  </span>
+                )}
+                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <span className="px-3 py-1 bg-vscode-accent text-white text-xs font-medium rounded-full shadow-lg">
+                    View Details
+                  </span>
+                </div>
               </div>
               
               {/* Project Info */}
@@ -168,6 +240,17 @@ const ProjectsSection = ({ projectId }) => {
                 
                 {/* Action Buttons */}
                 <div className="flex gap-2">
+                  <button
+                    onClick={() => openTab({
+                      id: `project-${proj.id}`,
+                      name: `${proj.id}.jsx`,
+                      type: 'project',
+                      projectId: proj.id
+                    })}
+                    className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 bg-vscode-bg border border-vscode-border rounded hover:border-vscode-accent transition-colors text-xs md:text-sm text-vscode-text font-medium"
+                  >
+                    Details
+                  </button>
                   {proj.github && (
                     <a
                       href={proj.github}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import usePortfolioStore from '../../store/portfolioStore';
 import WelcomeSection from '../sections/WelcomeSection';
 import AboutSection from '../sections/AboutSection';
@@ -9,10 +9,10 @@ import ContactSection from '../sections/ContactSection';
 import ResumeSection from '../sections/ResumeSection';
 import NotFound from '../sections/NotFound';
 
-const CodeEditor = () => {
+const CodeEditor = React.memo(() => {
   const { activeTabId, openTabs } = usePortfolioStore();
   
-  const activeTab = openTabs.find(tab => tab.id === activeTabId);
+  const activeTab = useMemo(() => openTabs.find(tab => tab.id === activeTabId), [openTabs, activeTabId]);
   
   const renderContent = () => {
     if (!activeTab) {
@@ -46,10 +46,10 @@ const CodeEditor = () => {
   };
   
   return (
-      <div className="h-full w-full overflow-y-auto bg-vscode-bg pb-[80px] md:pb-0">
+    <div className="h-full w-full overflow-y-auto bg-vscode-bg pb-[80px] md:pb-0">
       {renderContent()}
     </div>
   );
-};
+});
 
 export default CodeEditor;

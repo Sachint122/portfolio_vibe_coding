@@ -175,6 +175,12 @@ const ExperienceSection = () => {
           </div>
           <div className="text-vscode-text/70 text-xs md:text-base">Internship Experience</div>
         </div>
+        <div className="text-center p-4 md:p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/30 rounded-lg">
+          <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-1 md:mb-2">
+            4 Months
+          </div>
+          <div className="text-vscode-text/70 text-xs md:text-base">Full Time  Experience</div>
+        </div>
         
         <div className="text-center p-4 md:p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg">
           <div className="text-3xl md:text-4xl font-bold text-purple-400 mb-1 md:mb-2">

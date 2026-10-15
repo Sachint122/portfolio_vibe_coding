@@ -5,7 +5,7 @@ import GitPanel from '../features/GitPanel';
 import ThemeSelector from '../features/ThemeSelector';
 import { VscClose } from 'react-icons/vsc';
 
-const Sidebar = () => {
+const Sidebar = React.memo(() => {
   const { activeSidebar, setActiveSidebar } = usePortfolioStore();
   
   if (!activeSidebar) return null;
@@ -103,6 +103,6 @@ const Sidebar = () => {
       </div>
     </>
   );
-};
+});
 
 export default Sidebar;

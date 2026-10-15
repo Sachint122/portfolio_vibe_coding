@@ -11,7 +11,7 @@ import {
 } from 'react-icons/vsc';
 import usePortfolioStore from '../../store/portfolioStore';
 
-const ActivityBar = () => {
+const ActivityBar = React.memo(() => {
   const { activeSidebar, setActiveSidebar, toggleTerminal, terminalVisible } = usePortfolioStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
@@ -50,8 +50,7 @@ const ActivityBar = () => {
                 w-12 h-12 flex items-center justify-center rounded-lg transition-all
                 ${isActive 
                   ? 'bg-vscode-selection text-vscode-accent border-l-2 border-vscode-accent' 
-                  : 'text-vscode-text hover:bg-vscode-hover'
-                }
+                  : 'text-vscode-text hover:bg-vscode-hover'}
               `}
               title={item.label}
             >
@@ -89,8 +88,7 @@ const ActivityBar = () => {
                     w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all mb-1
                     ${isActive 
                       ? 'bg-vscode-accent text-white' 
-                      : 'text-vscode-text hover:bg-vscode-hover'
-                    }
+                      : 'text-vscode-text hover:bg-vscode-hover'}
                   `}
                 >
                   <Icon size={20} />
@@ -103,6 +101,6 @@ const ActivityBar = () => {
       )}
     </>
   );
-};
+});
 
 export default ActivityBar;
