@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { VscCode, VscGithub, VscTerminal, VscRocket, VscSparkle } from 'react-icons/vsc';
+import { VscGithub, VscTerminal, VscRocket, VscSparkle } from 'react-icons/vsc';
 import usePortfolioStore from '../../store/portfolioStore';
 import { portfolioData } from '../../data/portfolioData';
+import CardTilt3D from '../3d/CardTilt3D';
+import LiveDeveloperStatus from '../features/LiveDeveloperStatus';
+import InteractiveTerminalIntro from '../features/InteractiveTerminalIntro';
+
+const HolographicCore = React.lazy(() => import('../3d/HolographicCore'));
 
 const WelcomeSection = () => {
   const { openTab, toggleTerminal } = usePortfolioStore();
@@ -55,18 +60,21 @@ const WelcomeSection = () => {
   ];
 
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="w-full">
       <div className="p-4 md:p-8 py-6 md:py-12">
         <div className="text-center max-w-5xl mx-auto">
-          {/* Main Icon with Glow */}
-          <div className="flex justify-center mb-8">
-            <div className="relative">
-              <div className="absolute inset-0 bg-vscode-accent blur-2xl opacity-20 rounded-full"></div>
-              <VscCode size={120} className="text-vscode-accent opacity-90 relative" />
-              <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500 rounded-full border-4 border-vscode-bg animate-pulse flex items-center justify-center">
-                <span className="text-white text-xs font-bold">AI</span>
-              </div>
-            </div>
+          {/* Interactive 3D Holographic Core */}
+          <div className="flex justify-center mb-6 min-h-[256px] md:min-h-[320px]">
+            <React.Suspense
+              fallback={
+                <div className="w-64 h-64 md:w-80 md:h-80 flex flex-col items-center justify-center rounded-2xl bg-vscode-hover/20 border border-vscode-border/30 animate-pulse">
+                  <div className="w-10 h-10 rounded-full border-2 border-t-vscode-accent border-vscode-border animate-spin mb-2" />
+                  <span className="text-[11px] font-mono text-vscode-text/60">Initializing 3D Core...</span>
+                </div>
+              }
+            >
+              <HolographicCore />
+            </React.Suspense>
           </div>
 
           {/* Title with Gradient */}
@@ -89,14 +97,20 @@ const WelcomeSection = () => {
           </p>
 
           {/* AI Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-full mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-full mb-10">
             <VscSparkle className="text-purple-400 animate-pulse" size={16} />
             <span className="text-purple-400 text-sm font-medium">{typingText}</span>
             <VscSparkle className="text-pink-400 animate-pulse" size={16} />
           </div>
 
+          {/* Hero Feature 2 & 3: Live Developer Status & Interactive Terminal Intro */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 max-w-5xl mx-auto mb-12 text-left items-stretch">
+            <LiveDeveloperStatus />
+            <InteractiveTerminalIntro />
+          </div>
+
           {/* AI Description Box */}
-          <div className="max-w-3xl mx-auto mb-12 p-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-lg backdrop-blur-sm">
+          <div data-scroll-reveal="true" className="max-w-3xl mx-auto mb-12 p-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-lg backdrop-blur-sm">
             <div className="flex items-start gap-3 mb-3">
               <div className="text-3xl">🤖</div>
               <div className="text-left flex-1">
@@ -133,29 +147,30 @@ const WelcomeSection = () => {
             </div>
           </div>
 
-          {/* Quick Actions Grid */}
+          {/* Quick Actions Grid with 3D Tilt */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
             {quickActions.map((action, index) => (
-              <button
-                key={index}
-                onClick={action.action}
-                className="relative p-6 bg-vscode-hover border border-vscode-border rounded-lg hover:border-vscode-accent transition-all group overflow-hidden"
-              >
-                {/* Gradient Background on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${action.color} opacity-0 group-hover:opacity-10 transition-opacity`}></div>
+              <CardTilt3D key={index}>
+                <button
+                  onClick={action.action}
+                  className="w-full h-full text-left relative p-6 bg-vscode-hover border border-vscode-border rounded-xl hover:border-vscode-accent transition-all group overflow-hidden"
+                >
+                  {/* Gradient Background on Hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${action.color} opacity-0 group-hover:opacity-10 transition-opacity`}></div>
 
-                <div className="relative">
-                  <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">
-                    {action.icon}
+                  <div className="relative">
+                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">
+                      {action.icon}
+                    </div>
+                    <h3 className="font-bold text-vscode-text mb-1 group-hover:text-vscode-accent transition-colors">
+                      {action.title}
+                    </h3>
+                    <p className="text-sm text-vscode-text/60">
+                      {action.description}
+                    </p>
                   </div>
-                  <h3 className="font-bold text-vscode-text mb-1 group-hover:text-vscode-accent transition-colors">
-                    {action.title}
-                  </h3>
-                  <p className="text-sm text-vscode-text/60">
-                    {action.description}
-                  </p>
-                </div>
-              </button>
+                </button>
+              </CardTilt3D>
             ))}
           </div>
 
@@ -195,7 +210,7 @@ const WelcomeSection = () => {
           </div>
 
           {/* Features Showcase */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          <div data-scroll-reveal="true" className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             <div className="p-4 bg-vscode-hover border border-vscode-border rounded-lg">
               <div className="text-3xl mb-2">🎯</div>
               <h4 className="font-semibold text-vscode-text mb-1">Interactive Terminal</h4>

@@ -67,9 +67,18 @@ const TitleBar = () => {
           </div>
         )}
         <div className="flex items-center gap-1.5 ml-3">
-          <div className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-600 transition-colors cursor-pointer"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors cursor-pointer"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-600 transition-colors cursor-pointer"></div>
+          <div 
+            title="Close"
+            className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 hover:scale-115 active:scale-90 transition-all duration-150 cursor-pointer shadow-xs" 
+          />
+          <div 
+            title="Minimize"
+            className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 hover:scale-115 active:scale-90 transition-all duration-150 cursor-pointer shadow-xs" 
+          />
+          <div 
+            title="Maximize"
+            className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 hover:scale-115 active:scale-90 transition-all duration-150 cursor-pointer shadow-xs" 
+          />
         </div>
       </div>
     </div>

@@ -40,7 +40,7 @@ const TerminalEmulator = React.memo(() => {
     
     setHistory(newHistory);
     setInput('');
-  }, [history, input, openTab, setActiveSidebar, parseCommand]);
+  }, [history, input, openTab, setActiveSidebar]);
   
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });

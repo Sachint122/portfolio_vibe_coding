@@ -108,6 +108,8 @@ const GitPanel = () => {
         <img 
           src={githubStats.avatar} 
           alt={githubStats.name}
+          loading="lazy"
+          decoding="async"
           className="w-12 h-12 rounded-full border-2 border-vscode-accent"
         />
         <div className="flex-1">

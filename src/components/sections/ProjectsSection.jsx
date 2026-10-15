@@ -1,15 +1,61 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { portfolioData } from '../../data/portfolioData';
-import { VscGithub, VscLinkExternal, VscCheck } from 'react-icons/vsc';
+import { VscGithub, VscLinkExternal, VscCheck, VscLayers, VscRocket, VscDeviceMobile } from 'react-icons/vsc';
 import usePortfolioStore from '../../store/portfolioStore';
+import CardTilt3D from '../3d/CardTilt3D';
+import ERPSystemShowcase from '../features/ERPSystemShowcase';
+import ResponsiveWebsitePreview from '../features/ResponsiveWebsitePreview';
+
+const PROJECT_ALIASES = {
+  'erp-system': 'dindia-erp-system',
+  'dindia-erp': 'dindia-erp-system',
+  'erp': 'dindia-erp-system',
+  'send-mail': 'send-mail-app',
+  'mail-app': 'send-mail-app',
+  'library-mgmt': 'library-management',
+  'library': 'library-management',
+  'dti': 'dti-website',
+  'destination-technologies': 'dti-website',
+  'infratech': 'dindia-infratech',
+  'dindia-infratech-website': 'dindia-infratech',
+  'dindia-corporate': 'dindia-website',
+  'home-automation-app': 'home-automation',
+  'pasovit': 'pasovit-task-manager',
+  'youtube': 'youtube-downloader'
+};
+
+const PROJECT_FILE_MAP = {
+  'dindia-erp-system': { tabId: 'project-dindia-erp-system', name: 'dindia-erp-system.jsx' },
+  'dindia-infratech': { tabId: 'project-dindia-infratech', name: 'dindia-infratech.jsx' },
+  'dindia-website': { tabId: 'project-dindia-website', name: 'dindia-website.jsx' },
+  'send-mail-app': { tabId: 'project-send-mail', name: 'send-mail-app.js' },
+  'dti-website': { tabId: 'project-dti', name: 'destination-technologies.jsx' },
+  'home-automation': { tabId: 'project-home-automation', name: 'home-automation.java' },
+  'library-management': { tabId: 'project-library', name: 'library-management.ts' },
+  'car-rental-website': { tabId: 'project-car-rental', name: 'car-rental-website.html' },
+  'pasovit-task-manager': { tabId: 'project-pasovit', name: 'pasovit-task-manager.js' },
+  'youtube-downloader': { tabId: 'project-youtube', name: 'youtube-downloader.js' }
+};
+
+const FILTER_TABS = [
+  { id: 'all', label: 'All Projects', icon: '🚀' },
+  { id: 'featured', label: 'Featured Enterprise', icon: '⭐' },
+  { id: 'fullstack', label: 'Full Stack MERN', icon: '⚡' },
+  { id: 'frontend', label: 'Frontend & UI', icon: '⚛️' },
+  { id: 'other', label: 'Android & Systems', icon: '🛠️' },
+];
 
 const ProjectsSection = ({ projectId }) => {
   const { openTab } = usePortfolioStore();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [activeViewMode, setActiveViewMode] = useState('cards'); // 'cards' | 'responsive'
 
-  // If projectId is provided, show single project
+  // CASE 1: Single Project Detailed View
   if (projectId) {
-    const project = portfolioData.projects.find(p => p.id === projectId);
+    const resolvedId = PROJECT_ALIASES[projectId] || projectId;
+    const project = portfolioData.projects.find(p => p.id === resolvedId || p.id === projectId);
     
     if (!project) {
       return (
@@ -18,11 +64,60 @@ const ProjectsSection = ({ projectId }) => {
             <p className="text-xl md:text-2xl text-red-500 mb-3 md:mb-4">⚠️ Project Not Found</p>
             <p className="text-vscode-text text-sm md:text-base">Project with ID "{projectId}" does not exist.</p>
             <p className="text-vscode-text/60 mt-2 text-xs md:text-sm">Available project IDs: {portfolioData.projects.map(p => p.id).join(', ')}</p>
+            <button
+              onClick={() => openTab({ id: 'all-projects', name: 'Projects', type: 'all-projects' })}
+              className="mt-4 px-4 py-2 bg-vscode-accent text-white rounded-lg text-sm font-medium hover:bg-vscode-accent/80 transition-all"
+            >
+              Browse All Projects
+            </button>
           </div>
         </div>
       );
     }
 
+    const fileInfo = PROJECT_FILE_MAP[resolvedId] || { tabId: `project-${resolvedId}`, name: `${resolvedId}.jsx` };
+
+    // SUB-CASE 1A: ERP System Detailed Showcase (Feature 11) - Zero Duplication
+    if (resolvedId === 'dindia-erp-system') {
+      return (
+        <div className="p-4 md:p-8 max-w-6xl mx-auto">
+          <div className="mb-4 flex items-center justify-between">
+            <button
+              onClick={() => openTab({ id: 'all-projects', name: 'Projects', type: 'all-projects' })}
+              className="text-xs font-mono text-vscode-accent hover:underline flex items-center gap-1"
+            >
+              <span>← Back to All Projects</span>
+            </button>
+            <span className="text-[11px] font-mono text-vscode-text/50">
+              {fileInfo.name}
+            </span>
+          </div>
+          <ERPSystemShowcase />
+        </div>
+      );
+    }
+
+    // SUB-CASE 1B: Responsive Websites Detailed View (Feature 12) - Zero Duplication
+    if (resolvedId === 'dindia-website' || resolvedId === 'dindia-infratech') {
+      return (
+        <div className="p-4 md:p-8 max-w-6xl mx-auto">
+          <div className="mb-4 flex items-center justify-between">
+            <button
+              onClick={() => openTab({ id: 'all-projects', name: 'Projects', type: 'all-projects' })}
+              className="text-xs font-mono text-vscode-accent hover:underline flex items-center gap-1"
+            >
+              <span>← Back to All Projects</span>
+            </button>
+            <span className="text-[11px] font-mono text-vscode-text/50">
+              {fileInfo.name}
+            </span>
+          </div>
+          <ResponsiveWebsitePreview initialSiteId={resolvedId} showSiteSwitcher={true} />
+        </div>
+      );
+    }
+
+    // SUB-CASE 1C: Standard Project Detailed View (Destination Technologies, SendMail, etc.)
     const imageList = project.images && project.images.length > 0
       ? project.images
       : (project.image ? [project.image] : []);
@@ -30,6 +125,19 @@ const ProjectsSection = ({ projectId }) => {
     
     return (
       <div className="p-4 md:p-8 max-w-5xl mx-auto">
+        {/* Navigation Breadcrumb */}
+        <div className="mb-4 flex items-center justify-between">
+          <button
+            onClick={() => openTab({ id: 'all-projects', name: 'Projects', type: 'all-projects' })}
+            className="text-xs font-mono text-vscode-accent hover:underline flex items-center gap-1"
+          >
+            <span>← Back to All Projects</span>
+          </button>
+          <span className="text-[11px] font-mono text-vscode-text/50">
+            {fileInfo.name}
+          </span>
+        </div>
+
         {/* Project Header */}
         <div className="mb-6 md:mb-8">
           <div className="flex items-center gap-2 mb-2 md:mb-3">
@@ -41,26 +149,30 @@ const ProjectsSection = ({ projectId }) => {
           </p>
         </div>
         
-        {/* Project Image Gallery Banner */}
+        {/* Project Image Gallery Banner with 3D Tilt */}
         <div className="mb-6 md:mb-8">
-          <div className="max-h-[460px] rounded-lg overflow-hidden border border-vscode-border bg-vscode-hover flex items-center justify-center shadow-2xl relative group">
-            {activeImage ? (
-              <img
-                src={activeImage}
-                alt={`${project.title} preview ${activeImageIndex + 1}`}
-                className="w-full h-auto max-h-[460px] object-cover object-top hover:scale-[1.01] transition-transform duration-500"
-              />
-            ) : (
-              <div className="h-48 md:h-64 w-full bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center text-6xl md:text-8xl">
-                🚀
-              </div>
-            )}
-            {imageList.length > 1 && (
-              <div className="absolute bottom-3 right-3 px-3 py-1 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 shadow-lg">
-                📷 {activeImageIndex + 1} / {imageList.length}
-              </div>
-            )}
-          </div>
+          <CardTilt3D maxTilt={5}>
+            <div className="max-h-[460px] rounded-xl overflow-hidden border border-vscode-border bg-vscode-hover flex items-center justify-center shadow-2xl relative group">
+              {activeImage ? (
+                <img
+                  src={activeImage}
+                  alt={`${project.title} preview ${activeImageIndex + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto max-h-[460px] object-cover object-top hover:scale-[1.01] transition-transform duration-500"
+                />
+              ) : (
+                <div className="h-48 md:h-64 w-full bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center text-6xl md:text-8xl">
+                  🚀
+                </div>
+              )}
+              {imageList.length > 1 && (
+                <div className="absolute bottom-3 right-3 px-3 py-1 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-white/20 shadow-lg">
+                  📷 {activeImageIndex + 1} / {imageList.length}
+                </div>
+              )}
+            </div>
+          </CardTilt3D>
 
           {/* Interactive Thumbnails for multiple images */}
           {imageList.length > 1 && (
@@ -78,6 +190,8 @@ const ProjectsSection = ({ projectId }) => {
                   <img
                     src={img}
                     alt={`Screenshot ${idx + 1}`}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-top"
                   />
                 </button>
@@ -167,124 +281,257 @@ const ProjectsSection = ({ projectId }) => {
     );
   }
   
-  // Show all projects if no projectId
+  // CASE 2: All Projects Overview Page - Clean, Non-Duplicated
+  const allProjects = portfolioData.projects || [];
+  
+  const filteredProjects = allProjects.filter(p => {
+    if (selectedFilter === 'all') return true;
+    if (selectedFilter === 'featured') return p.featured;
+    if (selectedFilter === 'fullstack') return p.category === 'fullstack';
+    if (selectedFilter === 'frontend') return p.category === 'frontend';
+    if (selectedFilter === 'other') return p.category === 'android' || p.category === 'other' || !p.category;
+    return true;
+  });
+
   return (
     <div className="p-4 md:p-8 max-w-6xl mx-auto">
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-vscode-accent mb-2 md:mb-3">My Projects</h1>
-        <p className="text-vscode-text text-sm md:text-lg">
-          Explore my portfolio of web applications built with the Node.js stack
-        </p>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        {portfolioData.projects && portfolioData.projects.length > 0 ? (
-          portfolioData.projects.map((proj) => (
-            <div
-              key={proj.id}
-              className="bg-vscode-hover border border-vscode-border rounded-lg overflow-hidden hover:border-vscode-accent transition-all hover:shadow-lg"
-            >
-              {/* Project Image */}
-              <div
-                className="h-44 md:h-52 relative overflow-hidden bg-gradient-to-br from-vscode-accent/20 to-blue-600/20 flex items-center justify-center border-b border-vscode-border cursor-pointer group"
-                onClick={() => openTab({
-                  id: `project-${proj.id}`,
-                  name: `${proj.id}.jsx`,
-                  type: 'project',
-                  projectId: proj.id
-                })}
-              >
-                {proj.image ? (
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <span className="text-5xl md:text-6xl group-hover:scale-110 transition-transform">
-                    {proj.featured ? '⭐' : '🚀'}
-                  </span>
-                )}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="px-3 py-1 bg-vscode-accent text-white text-xs font-medium rounded-full shadow-lg">
-                    View Details
-                  </span>
-                </div>
-              </div>
-              
-              {/* Project Info */}
-              <div className="p-4 md:p-5">
-                <h3 className="text-lg md:text-xl font-bold text-vscode-text mb-2">{proj.title}</h3>
-                <p className="text-vscode-text/70 text-xs md:text-sm mb-3 md:mb-4 line-clamp-3">
-                  {proj.description || 'No description available'}
-                </p>
-                
-                {/* Tech Stack */}
-                {proj.techStack && proj.techStack.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
-                    {proj.techStack.slice(0, 3).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-0.5 md:py-1 bg-vscode-accent/10 text-vscode-accent text-xs rounded"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {proj.techStack.length > 3 && (
-                      <span className="px-2 py-0.5 md:py-1 bg-vscode-accent/10 text-vscode-accent text-xs rounded">
-                        +{proj.techStack.length - 3}
-                      </span>
-                    )}
-                  </div>
-                )}
-                
-                {/* Action Buttons */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => openTab({
-                      id: `project-${proj.id}`,
-                      name: `${proj.id}.jsx`,
-                      type: 'project',
-                      projectId: proj.id
-                    })}
-                    className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 bg-vscode-bg border border-vscode-border rounded hover:border-vscode-accent transition-colors text-xs md:text-sm text-vscode-text font-medium"
-                  >
-                    Details
-                  </button>
-                  {proj.github && (
-                    <a
-                      href={proj.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 bg-vscode-bg border border-vscode-border rounded hover:border-vscode-accent transition-colors text-xs md:text-sm"
-                    >
-                      <VscGithub size={14} />
-                      Code
-                    </a>
-                  )}
-                  {proj.live && (
-                    <a
-                      href={proj.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-3 py-2 bg-vscode-accent text-white rounded hover:opacity-90 transition-opacity text-xs md:text-sm"
-                    >
-                      <VscLinkExternal size={14} />
-                      Live
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12">
-            <p className="text-vscode-text text-base md:text-lg">No projects available</p>
+      {/* Header & View Mode Switcher */}
+      <div className="mb-6 md:mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-4 border-b border-vscode-border/60">
+        <div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-vscode-accent/10 border border-vscode-accent/30 rounded-full mb-2">
+            <VscRocket className="text-vscode-accent" size={13} />
+            <span className="text-vscode-accent text-xs font-mono font-medium">Production Portfolio</span>
           </div>
-        )}
+          <h1 className="text-3xl md:text-4xl font-bold text-vscode-text">
+            My Projects
+          </h1>
+          <p className="text-vscode-text/70 text-sm md:text-base mt-1">
+            Enterprise systems, responsive client portals, and full-stack software built with the MERN stack
+          </p>
+        </div>
+
+        {/* View Mode Switcher: 3D Cards Grid vs Multi-Device Responsive */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex rounded-lg bg-vscode-hover p-1 border border-vscode-border">
+            <button
+              onClick={() => setActiveViewMode('cards')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
+                activeViewMode === 'cards'
+                  ? 'bg-vscode-accent text-white shadow-md font-semibold'
+                  : 'text-vscode-text/70 hover:text-vscode-text'
+              }`}
+            >
+              <VscLayers size={13} />
+              <span>3D Project Cards</span>
+            </button>
+            <button
+              onClick={() => setActiveViewMode('responsive')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition-all ${
+                activeViewMode === 'responsive'
+                  ? 'bg-vscode-accent text-white shadow-md font-semibold'
+                  : 'text-vscode-text/70 hover:text-vscode-text'
+              }`}
+            >
+              <VscDeviceMobile size={13} />
+              <span>Responsive Showcase</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* VIEW MODE 1: Responsive Showcase (Feature 12) */}
+      {activeViewMode === 'responsive' && (
+        <div>
+          <ResponsiveWebsitePreview showSiteSwitcher={true} />
+        </div>
+      )}
+
+      {/* VIEW MODE 2: 3D Project Cards Grid (Feature 10) */}
+      {activeViewMode === 'cards' && (
+        <div>
+          {/* Category Filters Bar */}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-1.5">
+              {FILTER_TABS.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedFilter(tab.id)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                    selectedFilter === tab.id
+                      ? 'bg-vscode-accent text-white shadow-md font-semibold'
+                      : 'bg-vscode-hover hover:bg-vscode-bg border border-vscode-border text-vscode-text/70 hover:text-vscode-text'
+                  }`}
+                >
+                  <span>{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              ))}
+            </div>
+
+            <span className="text-xs font-mono text-vscode-text/50">
+              Showing {filteredProjects.length} of {allProjects.length} projects
+            </span>
+          </div>
+
+          {/* 3D Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((proj, index) => {
+                const fileInfo = PROJECT_FILE_MAP[proj.id] || { tabId: `project-${proj.id}`, name: `${proj.id}.jsx` };
+
+                return (
+                  <motion.div
+                    key={proj.id}
+                    data-framer-motion="true"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-30px' }}
+                    transition={{
+                      duration: 0.45,
+                      delay: Math.min((index % 6) * 0.05, 0.25),
+                      ease: [0.16, 1, 0.3, 1]
+                    }}
+                    className="h-full"
+                  >
+                    <CardTilt3D maxTilt={6} className="h-full">
+                      <div className="h-full flex flex-col justify-between rounded-xl overflow-hidden border border-vscode-border bg-gradient-to-b from-vscode-sidebar/95 via-vscode-bg to-vscode-sidebar/95 hover:border-vscode-accent/70 transition-all hover:shadow-2xl relative group">
+                        {/* Subtle Glare Line on Hover */}
+                        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                        {/* Card Image Area with Zoom & Badges */}
+                        <div
+                          className="h-44 md:h-52 relative overflow-hidden bg-vscode-hover border-b border-vscode-border/70 cursor-pointer"
+                          onClick={() => openTab({
+                            id: fileInfo.tabId,
+                            name: fileInfo.name,
+                            type: 'project',
+                            projectId: proj.id
+                          })}
+                        >
+                          {proj.image ? (
+                            <img
+                              src={proj.image}
+                              alt={proj.title}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="h-full w-full bg-gradient-to-br from-vscode-accent/15 to-blue-600/15 flex items-center justify-center text-5xl">
+                              {proj.featured ? '⭐' : '🚀'}
+                            </div>
+                          )}
+
+                          {/* Gradient Overlay & Glare on Hover */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-85 transition-opacity" />
+
+                          {/* Badges on Image */}
+                          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
+                            {proj.featured ? (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/90 text-black shadow-md flex items-center gap-1">
+                                ⭐ Featured
+                              </span>
+                            ) : <span />}
+
+                            {proj.live && (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/90 text-black shadow-md flex items-center gap-1">
+                                🟢 Live Site
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Hover Inspect CTA */}
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="px-3.5 py-1.5 bg-vscode-accent text-white text-xs font-mono font-bold rounded-lg shadow-xl border border-white/20 transform -translate-y-1 group-hover:translate-y-0 transition-transform">
+                              Inspect {fileInfo.name}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Card Content */}
+                        <div className="p-4 md:p-5 flex-1 flex flex-col justify-between">
+                          <div>
+                            <h4 className="text-base md:text-lg font-bold text-vscode-text group-hover:text-vscode-accent transition-colors mb-1.5">
+                              {proj.title}
+                            </h4>
+                            <p className="text-vscode-text/70 text-xs leading-relaxed line-clamp-3 mb-3">
+                              {proj.description || 'Full-stack application engineered with scalable architecture.'}
+                            </p>
+
+                            {/* Tech Stack Pills */}
+                            {proj.techStack && proj.techStack.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mb-4">
+                                {proj.techStack.slice(0, 3).map((tech, idx) => (
+                                  <span
+                                    key={idx}
+                                    className="px-2 py-0.5 rounded text-[10px] font-mono bg-vscode-hover border border-vscode-border text-vscode-text/80"
+                                  >
+                                    {tech}
+                                  </span>
+                                ))}
+                                {proj.techStack.length > 3 && (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-mono bg-vscode-accent/15 text-vscode-accent border border-vscode-accent/30 font-bold">
+                                    +{proj.techStack.length - 3}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Action Links Toolbar */}
+                          <div className="pt-3 border-t border-vscode-border/50 flex items-center gap-2">
+                            <button
+                              onClick={() => openTab({
+                                id: fileInfo.tabId,
+                                name: fileInfo.name,
+                                type: 'project',
+                                projectId: proj.id
+                              })}
+                              className="flex-1 py-1.5 px-2 bg-vscode-hover hover:bg-vscode-bg border border-vscode-border rounded-lg text-xs font-mono text-vscode-text hover:text-vscode-accent hover:border-vscode-accent/50 transition-all text-center"
+                            >
+                              Details
+                            </button>
+
+                            {proj.github && (
+                              <a
+                                href={proj.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 py-1.5 px-2 bg-vscode-hover hover:bg-vscode-bg border border-vscode-border rounded-lg text-xs font-mono text-vscode-text hover:text-white hover:border-vscode-accent/50 transition-all flex items-center justify-center gap-1"
+                              >
+                                <VscGithub size={13} />
+                                <span>Code</span>
+                              </a>
+                            )}
+
+                            {proj.live && (
+                              <a
+                                href={proj.live}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 py-1.5 px-2 bg-vscode-accent hover:bg-vscode-accent/90 text-white rounded-lg text-xs font-mono font-semibold shadow transition-all flex items-center justify-center gap-1 active:scale-95"
+                              >
+                                <VscLinkExternal size={12} />
+                                <span>Live</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </CardTilt3D>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-vscode-text text-base">No projects found in this category.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ProjectsSection;
+export default React.memo(ProjectsSection);

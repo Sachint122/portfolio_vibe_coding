@@ -53,35 +53,41 @@ const StatusBar = () => {
         </div>
         
         {/* Right Section */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {/* Current Theme */}
           <button
+            type="button"
             onClick={handleThemeClick}
-            className="flex items-center gap-1.5 hover:bg-white/10 px-2 py-0.5 rounded transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 hover:bg-white/15 active:scale-95 px-2 py-0.5 rounded transition-all duration-150 cursor-pointer select-none"
             title="Click to change theme"
           >
-            <VscSettingsGear size={14} />
+            <VscSettingsGear size={13} className="hover:rotate-45 transition-transform duration-200" />
             <span className="font-medium">{themeName}</span>
           </button>
           
           {/* Encoding */}
-          <div className="hover:bg-white/10 px-2 py-0.5 rounded transition-colors cursor-pointer">
+          <div className="hover:bg-white/15 active:scale-95 px-2 py-0.5 rounded transition-all duration-150 cursor-pointer select-none">
             UTF-8
           </div>
           
           {/* Line Ending */}
-          <div className="hover:bg-white/10 px-2 py-0.5 rounded transition-colors cursor-pointer">
+          <div className="hover:bg-white/15 active:scale-95 px-2 py-0.5 rounded transition-all duration-150 cursor-pointer select-none">
             LF
           </div>
           
           {/* Language */}
-          <div className="hover:bg-white/10 px-2 py-0.5 rounded transition-colors cursor-pointer">
+          <div className="hover:bg-white/15 active:scale-95 px-2 py-0.5 rounded transition-all duration-150 cursor-pointer select-none">
             JavaScript
           </div>
           
           {/* Notifications */}
-          <button className="hover:bg-white/10 p-1 rounded transition-colors">
-            <VscBell size={14} />
+          <button 
+            type="button"
+            className="hover:bg-white/15 active:scale-90 p-1 rounded transition-all duration-150 cursor-pointer"
+            title="Notifications"
+            aria-label="Notifications"
+          >
+            <VscBell size={13} />
           </button>
         </div>
       </div>

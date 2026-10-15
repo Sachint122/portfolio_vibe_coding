@@ -42,41 +42,109 @@ export const portfolioData = {
 
   resumes: [
     {
-      id: 'resume-mern-fullstack',
-      title: 'MERN Stack & Full Stack Engineer',
-      description: 'Full-stack development expertise spanning React.js frontend engineering, Node.js and Express.js backend development, RESTful API architecture, MongoDB and SQL database integration, and enterprise ERP systems. Experienced in building responsive business websites, role-based access control (RBAC), employee and task management workflows, CRM, invoicing, authentication, third-party integrations, performance optimization, and CI/CD deployment using GitHub Actions and Hostinger.',
+      id: 'resume-fullstack',
+      roleKey: 'fullstack',
+      title: 'Full Stack Developer',
+      badge: 'Enterprise & End-to-End',
+      targetRole: 'Full Stack Web Developer / Software Engineer',
+      description: 'Comprehensive full-stack engineering expertise covering React.js responsive frontends, Node.js and Express.js backend services, RESTful API architecture, MongoDB & MySQL database modeling, 4-tier RBAC enterprise ERP systems, and automated CI/CD deployment.',
       driveId: '1Yv56XdQ-zK_6rq2Hp1PNgk60SB6qmhDx',
       icon: '💻',
       color: 'blue',
       tags: [
-        'MERN Stack Development',
         'Full Stack Engineering',
         'React.js',
-        'JavaScript ES6+',
         'Node.js',
         'Express.js',
-        'REST API Design',
+        'RESTful APIs',
         'MongoDB & Mongoose',
-        'SQL & Relational Databases',
-        'Database Modeling',
-        'Authentication & Authorization',
-        'Role-Based Access Control (RBAC)',
+        'MySQL & SQL',
+        'RBAC Architecture',
         'Enterprise ERP Systems',
-        'CRM & Business Workflows',
-        'Employee & Task Management',
-        'Invoice & Revenue Workflows',
-        'Google OAuth',
-        'Razorpay Integration',
-        'Responsive UI Development',
         'Tailwind CSS',
         'Vite',
-        'Performance Optimization',
-        'API Error Handling',
-        'Git & GitHub',
-        'GitHub Actions CI/CD',
+        'GitHub Actions (CI/CD)',
         'Hostinger Deployment'
       ],
+      coreCompetencies: [
+        'Full-Stack Web Architecture (React.js + Node.js + Express)',
+        '4-Tier Role-Based Access Control (RBAC) & Enterprise ERP Systems',
+        'Daily Work Reports (DWR), Attendance Tracking & PDF Document Parsing',
+        'Continuous Integration & Deployment via GitHub Actions to Hostinger',
+        'Database Modeling across MongoDB (NoSQL) and MySQL (Relational)'
+      ],
+      featuredProjects: ['dindia-erp-system', 'dindia-website', 'dti-website'],
       featured: true,
+      lastUpdated: '2026-10-15'
+    },
+    {
+      id: 'resume-mern',
+      roleKey: 'mern',
+      title: 'MERN Stack Developer',
+      badge: 'React & MongoDB Specialist',
+      targetRole: 'MERN Stack Developer / Frontend-Heavy Full Stack',
+      description: 'Specialized MERN stack profile focused on building dynamic Single Page Applications (SPAs) with React.js and Tailwind CSS, robust Express.js REST middleware, Mongoose schema modeling, JWT authentication, and interactive dashboards.',
+      driveId: '1Yv56XdQ-zK_6rq2Hp1PNgk60SB6qmhDx',
+      icon: '⚛️',
+      color: 'cyan',
+      tags: [
+        'MERN Stack Development',
+        'React 19',
+        'JavaScript (ES6+)',
+        'MongoDB & Mongoose',
+        'Express.js',
+        'Node.js',
+        'REST API Design',
+        'Tailwind CSS',
+        'Vite Bundler',
+        'Responsive UI/UX',
+        'Component Architecture',
+        'JWT Authentication'
+      ],
+      coreCompetencies: [
+        'Single Page Application (SPA) development with React.js & modern hooks',
+        'Document-oriented database design & aggregation in MongoDB/Mongoose',
+        'RESTful API consumption, state synchronization & centralized error handling',
+        'Responsive, mobile-first UI with Tailwind CSS and CSS modular design',
+        'Performance optimization, lazy loading, and sub-second asset bundling'
+      ],
+      featuredProjects: ['dti-website', 'send-mail-app', 'dindia-infratech'],
+      featured: false,
+      lastUpdated: '2026-10-15'
+    },
+    {
+      id: 'resume-backend',
+      roleKey: 'backend',
+      title: 'Backend Developer',
+      badge: 'APIs, Security & Databases',
+      targetRole: 'Backend Developer / API & Database Engineer',
+      description: 'Targeted backend engineering profile emphasizing scalable Node.js and Express.js RESTful API architecture, JWT token security, Razorpay payment gateway integration, normalized MySQL relational database schemas, and automated Postman test suites.',
+      driveId: '1Yv56XdQ-zK_6rq2Hp1PNgk60SB6qmhDx',
+      icon: '⚙️',
+      color: 'purple',
+      tags: [
+        'Backend Engineering',
+        'Node.js',
+        'Express.js',
+        'RESTful API Design',
+        'JWT Authentication',
+        'MySQL',
+        'MongoDB',
+        'Razorpay Payment Gateway',
+        'Postman API Testing',
+        'Security Middleware',
+        'Database Indexing',
+        'Error Handling'
+      ],
+      coreCompetencies: [
+        'Scalable RESTful API development with Node.js and Express.js',
+        'Secure authentication & role authorization using JWT and bearer tokens',
+        'Razorpay payment gateway integration with HMAC signature verification',
+        'Relational schema design, query optimization, and indexing in MySQL',
+        'Automated endpoint verification and contract testing using Postman'
+      ],
+      featuredProjects: ['pasovit-task-manager', 'send-mail-app', 'dindia-erp-system'],
+      featured: false,
       lastUpdated: '2026-10-15'
     }
   ],
@@ -324,6 +392,7 @@ export const portfolioData = {
       position: "Web Developer",
       location: "India",
       duration: "June 2026 - Present",
+      type: "Full-Time",
       description: "Working as a Web Developer contributing to full-stack enterprise ERP & Office Management software while developing, optimizing, and deploying responsive corporate web platforms.",
       responsibilities: [
         "Contributed to developing a full-stack ERP & Office Management System centralizing workforce operations, RBAC, CRM telecaller pipelines, and invoice/revenue tracking",
@@ -333,42 +402,23 @@ export const portfolioData = {
         "Implemented employee lifecycle workflows including soft delete (Employee Trash, Restore, and Purge flows)",
         "Integrated REST APIs with centralized error handling and optimized application performance by reducing redundant API calls",
         "Automated continuous build and deployment pipelines using GitHub Actions and Vite for Hostinger hosting"
+      ],
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "RBAC", "Vite", "Tailwind CSS", "GitHub Actions", "Hostinger"],
+      deliverables: [
+        "4-Tier RBAC & DWR ERP Module deployed for internal workforce operations",
+        "2 Live commercial websites (dindiaplus.com & Dindia Infratech) with SEO & Google Maps",
+        "Automated PDF timesheet extraction directly ingested into MongoDB",
+        "Zero-data-loss employee soft-delete, trash bin, and restore workflows",
+        "Automated GitHub Actions CI/CD to Hostinger with Vite bundling"
       ]
     },
     {
       id: 2,
-      company: "WorkElate",
-      position: "MERN Stack Developer Intern",
-      location: "Remote",
-      duration: "Aug 2025 - september 2025",
-      description: "Working as a MERN Stack Developer Intern, contributing to the development and optimization of web applications with a focus on scalable backend systems and clean, efficient frontend designs.",
-      responsibilities: [
-        "Developed and maintained web applications using the MERN stack",
-        "Integrated RESTful APIs for seamless communication between frontend and backend",
-        "Implemented authentication and authorization using JWT",
-        "Collaborated with the team to debug, test, and deploy new features"
-      ]
-    },
-    {
-      id: 3,
-      company: "Suzuki Car Manufacturing",
-      position: "Production Engineering",
-      location: "Aahamdabad Gujarat",
-      duration: "sepetember 2020 - March 2021",
-      description: "Worked in the production department ensuring quality control, assembly line efficiency, and adherence to safety protocols during car manufacturing.",
-      responsibilities: [
-        "Monitored and maintained product quality standards on the assembly line",
-        "Assisted in optimizing workflow and improving operational efficiency",
-        "Collaborated with team members to meet daily production targets",
-        "Received the FTC Reward for exceptional performance"
-      ]
-    },
-    {
-      id: 4,
       company: "Deffotech",
       position: "Backend Developer Intern",
       location: "Remote",
-      duration: "Novemeber 2025 - February 2026",
+      duration: "November 2025 - February 2026",
+      type: "Internship",
       description: "Worked as a Backend Developer focusing on building scalable APIs, authentication systems, and real-world production-level features including payment integration and secure user management.",
       responsibilities: [
         "Developed and maintained RESTful APIs using Node.js and Express.js",
@@ -378,6 +428,55 @@ export const portfolioData = {
         "Built and managed multiple production-level projects including E-commerce, Internship Management, and File Handling systems",
         "Handled API testing, debugging, and performance optimization using Postman",
         "Collaborated with team to deliver scalable and maintainable backend solutions"
+      ],
+      technologies: ["Node.js", "Express.js", "MySQL", "JWT", "Razorpay", "Postman", "REST APIs"],
+      deliverables: [
+        "Secure Razorpay payment integration handling webhooks and transaction verification",
+        "Multi-role JWT authentication middleware protecting sensitive routes",
+        "Optimized MySQL relational database schemas with indexing",
+        "Automated API testing suites validated via Postman"
+      ]
+    },
+    {
+      id: 3,
+      company: "WorkElate",
+      position: "MERN Stack Developer Intern",
+      location: "Remote",
+      duration: "August 2025 - September 2025",
+      type: "Internship",
+      description: "Worked as a MERN Stack Developer Intern, contributing to the development and optimization of web applications with a focus on scalable backend systems and clean, efficient frontend designs.",
+      responsibilities: [
+        "Developed and maintained web applications using the MERN stack",
+        "Integrated RESTful APIs for seamless communication between frontend and backend",
+        "Implemented authentication and authorization using JWT",
+        "Collaborated with the team to debug, test, and deploy new features"
+      ],
+      technologies: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "REST APIs", "Tailwind CSS"],
+      deliverables: [
+        "Modular MERN stack components integrated with backend REST services",
+        "JWT-secured authentication flow with login session management",
+        "Clean, responsive UI with reusable Tailwind CSS layouts"
+      ]
+    },
+    {
+      id: 4,
+      company: "Suzuki Car Manufacturing",
+      position: "Production Engineering",
+      location: "Ahmedabad, Gujarat",
+      duration: "September 2020 - March 2021",
+      type: "Industrial Engineering",
+      description: "Worked in the production department ensuring quality control, assembly line efficiency, and adherence to safety protocols during car manufacturing.",
+      responsibilities: [
+        "Monitored and maintained product quality standards on the assembly line",
+        "Assisted in optimizing workflow and improving operational efficiency",
+        "Collaborated with team members to meet daily production targets",
+        "Received the FTC Reward for exceptional performance"
+      ],
+      technologies: ["Quality Control Protocols", "Assembly Line Workflow", "Industrial Safety Standards", "Process Optimization"],
+      deliverables: [
+        "Awarded prestigious FTC Reward for outstanding assembly line performance",
+        "Maintained zero-defect inspection compliance across production shifts",
+        "Optimized assembly workflow ergonomics and cycle time efficiency"
       ]
     }
   ],

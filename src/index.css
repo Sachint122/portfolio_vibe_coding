@@ -46,38 +46,35 @@ code {
 }
 
 /* ============================================
-   CUSTOM SCROLLBAR (THEME-BASED)
+   CUSTOM SCROLLBAR (SLEEK & LOW-PROFILE)
    ============================================ */
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
-  border-radius: 6px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-accent);
-  border-radius: 6px;
-  border: 2px solid var(--color-bg);
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
-  opacity: 0.8;
 }
 
 ::-webkit-scrollbar-corner {
-  background: var(--color-bg);
+  background: transparent;
 }
 
 /* Firefox Scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-accent) var(--color-bg);
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
 }
 
 /* ============================================
@@ -182,12 +179,15 @@ code {
 
 /* Hide Scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
 /* Line Clamp */
@@ -243,3 +243,127 @@ html {
     margin: 0 !important;
   }
 }
+
+/* ============================================
+   ORBITAL ROTATION ANIMATIONS
+   ============================================ */
+@keyframes spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: spin-reverse linear infinite;
+}
+
+/* ============================================
+   TACTILE IDE MICRO-INTERACTIONS (FEATURE 21)
+   ============================================ */
+.tactile-btn {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.tactile-btn:hover {
+  transform: translateY(-1px);
+}
+.tactile-btn:active {
+  transform: scale(0.97) translateY(0);
+}
+
+.tactile-chip {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.tactile-chip:hover {
+  filter: brightness(1.15);
+}
+.tactile-chip:active {
+  transform: scale(0.95);
+}
+
+.tactile-press {
+  transition: transform 0.1s ease-out;
+}
+.tactile-press:active {
+  transform: scale(0.96);
+}
+
+.tactile-glow {
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.tactile-glow:hover {
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.25);
+}
+
+/* ============================================
+   INTERACTIVE SCROLL ANIMATIONS
+   ============================================ */
+.scroll-reveal-init {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(4px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.is-scroll-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+@keyframes float-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.animate-float-bounce {
+  animation: float-bounce 2s infinite ease-in-out;
+}
+
+/* Mobile & Low-Power GPU Optimization */
+@media (max-width: 768px) {
+  .scroll-reveal-init {
+    filter: none !important;
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    will-change: opacity, transform;
+  }
+  .is-scroll-revealed {
+    filter: none !important;
+  }
+}
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+  .is-scroll-revealed {
+    filter: none !important;
+    transform: none !important;
+  }
+  .animate-float-bounce {
+    animation: none !important;
+  }
+}
+
+
+

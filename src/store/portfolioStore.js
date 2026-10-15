@@ -80,4 +80,8 @@ const usePortfolioStore = create((set) => ({
   }
 }));
 
+if (typeof window !== 'undefined') {
+  window.__PORTFOLIO_STORE__ = usePortfolioStore;
+}
+
 export default usePortfolioStore;

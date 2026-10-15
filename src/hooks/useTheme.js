@@ -11,7 +11,7 @@ export const useTheme = () => {
     if (savedTheme !== currentTheme) {
       setTheme(savedTheme);
     }
-  }, []);
+  }, [currentTheme, setTheme]);
 
   const switchTheme = (themeId) => {
     if (themes[themeId]) {

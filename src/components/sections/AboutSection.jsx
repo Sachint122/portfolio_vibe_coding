@@ -3,6 +3,9 @@ import { portfolioData } from '../../data/portfolioData';
 import { VscGithub, VscMail, VscLocation, VscRocket, VscCode, VscSparkle } from 'react-icons/vsc';
 import { FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import usePortfolioStore from '../../store/portfolioStore';
+import DeveloperSnapshot from '../features/DeveloperSnapshot';
+import InteractiveCareerTimeline from '../features/InteractiveCareerTimeline';
+import SoftwareBuildWorkflow from '../features/SoftwareBuildWorkflow';
 
 const AboutSection = () => {
   const { about } = portfolioData;
@@ -103,6 +106,15 @@ const AboutSection = () => {
           </p>
         </div>
       </div>
+
+      {/* Feature 5: Developer Snapshot */}
+      <DeveloperSnapshot />
+
+      {/* Feature 4: Interactive Career Timeline */}
+      <InteractiveCareerTimeline />
+
+      {/* Feature 6: How I Build Software */}
+      <SoftwareBuildWorkflow />
 
       {/* Core Expertise & Highlights */}
       {about.highlights && about.highlights.length > 0 && (

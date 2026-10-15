@@ -4,15 +4,24 @@ import Sidebar from './Sidebar';
 import TabBar from '../features/TabBar';
 import CodeEditor from '../features/CodeEditor';
 import StatusBar from './StatusBar';
-import TerminalEmulator from '../features/TerminalEmulator';
 import TitleBar from './TitleBar';
 import usePortfolioStore from '../../store/portfolioStore';
+import CursorSpotlight from '../3d/CursorSpotlight';
+import SimpleParticleField from '../3d/SimpleParticleField';
+
+const TerminalEmulator = React.lazy(() => import('../features/TerminalEmulator'));
 
 const VSCodeLayout = () => {
   const { terminalVisible, toggleTerminal } = usePortfolioStore();
   
   return (
-    <div className="h-screen w-screen flex flex-col bg-vscode-bg text-vscode-text overflow-hidden">
+    <div className="h-screen w-screen flex flex-col bg-vscode-bg text-vscode-text overflow-hidden relative">
+      {/* Background Low-Density Constellation Particles */}
+      <SimpleParticleField />
+
+      {/* Ambient Interactive Cursor Spotlight */}
+      <CursorSpotlight />
+
       {/* Title Bar */}
       <TitleBar />
       
@@ -39,7 +48,9 @@ const VSCodeLayout = () => {
             <>
               {/* Desktop Terminal */}
               <div className="hidden md:block md:h-1/2 border-t border-vscode-border overflow-hidden">
-                <TerminalEmulator />
+                <React.Suspense fallback={<div className="h-full flex items-center justify-center text-xs text-vscode-text/60 font-mono bg-vscode-bg">Loading terminal...</div>}>
+                  <TerminalEmulator />
+                </React.Suspense>
               </div>
               
               {/* Mobile Terminal - Above StatusBar */}
@@ -59,7 +70,9 @@ const VSCodeLayout = () => {
                 
                 {/* Terminal Container */}
                 <div className="h-full bg-vscode-bg border-t-2 border-vscode-accent shadow-2xl rounded-t-lg">
-                  <TerminalEmulator />
+                  <React.Suspense fallback={<div className="h-full flex items-center justify-center text-xs text-vscode-text/60 font-mono bg-vscode-bg">Loading terminal...</div>}>
+                    <TerminalEmulator />
+                  </React.Suspense>
                 </div>
               </div>
             </>

@@ -1,9 +1,10 @@
 import React from 'react';
 import usePortfolioStore from '../../store/portfolioStore';
 import FileExplorer from '../features/FileExplorer';
-import GitPanel from '../features/GitPanel';
-import ThemeSelector from '../features/ThemeSelector';
 import { VscClose } from 'react-icons/vsc';
+
+const GitPanel = React.lazy(() => import('../features/GitPanel'));
+const ThemeSelector = React.lazy(() => import('../features/ThemeSelector'));
 
 const Sidebar = React.memo(() => {
   const { activeSidebar, setActiveSidebar } = usePortfolioStore();
@@ -73,8 +74,10 @@ const Sidebar = React.memo(() => {
         <div className="h-[35px] flex items-center px-4 text-xs font-semibold text-vscode-text uppercase tracking-wide border-b border-vscode-border bg-gradient-to-r from-vscode-sidebar to-vscode-bg">
           {getTitle()}
         </div>
-        <div className="flex-1 overflow-y-auto">
-          {renderContent()}
+        <div className="flex-1 overflow-y-auto scrollbar-hide">
+          <React.Suspense fallback={<div className="p-4 text-center text-xs text-vscode-text/60 font-mono">Loading...</div>}>
+            {renderContent()}
+          </React.Suspense>
         </div>
       </div>
       
@@ -96,8 +99,10 @@ const Sidebar = React.memo(() => {
               <VscClose size={20} />
             </button>
           </div>
-          <div className="flex-1 overflow-y-auto">
-            {renderContent()}
+          <div className="flex-1 overflow-y-auto scrollbar-hide">
+            <React.Suspense fallback={<div className="p-4 text-center text-xs text-vscode-text/60 font-mono">Loading...</div>}>
+              {renderContent()}
+            </React.Suspense>
           </div>
         </div>
       </div>

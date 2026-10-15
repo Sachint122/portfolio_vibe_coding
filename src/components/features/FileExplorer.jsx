@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { VscFolder, VscFolderOpened, VscFile, VscChevronRight, VscChevronDown } from 'react-icons/vsc';
+import { VscFolder, VscFolderOpened, VscFile, VscChevronRight } from 'react-icons/vsc';
 import { fileSystem } from '../../data/fileSystem';
 import usePortfolioStore from '../../store/portfolioStore';
 
@@ -40,89 +40,110 @@ const FileExplorer = () => {
   const renderFile = (file, level = 0) => {
     const isActive = activeTabId === file.id;
     const { icon, color, bg } = getFileIcon(file.language);
-    
+
     return (
       <div
         key={file.id}
+        role="button"
+        tabIndex={0}
         onClick={() => handleFileClick(file)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleFileClick(file);
+          }
+        }}
         className={`
-          group flex items-center gap-2 px-3 py-2 cursor-pointer transition-all duration-200
-          hover:bg-vscode-hover/80 
-          ${isActive ? 'bg-vscode-selection/50 border-l-2 border-vscode-accent' : ''}
+          group flex items-center gap-2 px-3 py-2 cursor-pointer select-none outline-none
+          transition-all duration-150 ease-out active:scale-[0.98]
+          ${
+            isActive
+              ? 'bg-vscode-selection/40 border-l-2 border-vscode-accent shadow-[inset_2px_0_8px_rgba(99,102,241,0.18)] text-vscode-accent'
+              : 'hover:bg-vscode-hover/90 hover:translate-x-1 text-vscode-text/80 hover:text-white'
+          }
         `}
         style={{ paddingLeft: `${level * 16 + 12}px` }}
       >
         {/* File Icon with Background */}
-        <div className={`flex items-center justify-center w-5 h-5 rounded ${bg} ${color} text-sm group-hover:scale-110 transition-transform`}>
+        <div
+          className={`flex items-center justify-center w-5 h-5 rounded ${bg} ${color} text-xs group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-150 shadow-xs`}
+        >
           {icon}
         </div>
-        
+
         {/* File Name */}
-        <span className={`text-sm flex-1 ${isActive ? 'text-vscode-accent font-medium' : 'text-vscode-text'} group-hover:text-vscode-accent transition-colors`}>
+        <span
+          className={`text-xs md:text-sm flex-1 truncate transition-colors ${
+            isActive ? 'text-vscode-accent font-medium' : 'group-hover:text-vscode-accent'
+          }`}
+        >
           {file.name}
         </span>
-        
-        {/* Active Indicator */}
+
+        {/* Active Indicator Dot */}
         {isActive && (
-          <div className="w-1.5 h-1.5 rounded-full bg-vscode-accent animate-pulse"></div>
+          <div className="w-1.5 h-1.5 rounded-full bg-vscode-accent shadow-[0_0_6px_rgba(99,102,241,0.9)] animate-pulse" />
         )}
       </div>
     );
   };
-  
+
   const renderFolder = (folder, level = 0) => {
     const isExpanded = expandedFolders.includes(folder.id);
-    
+
     return (
       <div key={folder.id} className="select-none">
         {/* Folder Header */}
         <div
+          role="button"
+          tabIndex={0}
           onClick={() => toggleFolder(folder.id)}
-          className="group flex items-center gap-2 px-3 py-2 cursor-pointer hover:bg-vscode-hover/80 transition-all duration-200"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleFolder(folder.id);
+            }
+          }}
+          className="group flex items-center gap-2 px-3 py-2 cursor-pointer outline-none hover:bg-vscode-hover/90 hover:translate-x-0.5 active:scale-[0.99] transition-all duration-150 ease-out"
           style={{ paddingLeft: `${level * 16 + 12}px` }}
         >
-          {/* Expand/Collapse Icon */}
+          {/* Smooth Rotating Chevron Icon */}
           <div className="w-4 flex items-center justify-center">
-            {isExpanded ? (
-              <VscChevronDown 
-                size={16} 
-                className="text-vscode-text/70 group-hover:text-vscode-accent transition-colors" 
-              />
-            ) : (
-              <VscChevronRight 
-                size={16} 
-                className="text-vscode-text/70 group-hover:text-vscode-accent transition-colors" 
-              />
-            )}
+            <VscChevronRight
+              size={15}
+              className={`text-vscode-text/60 group-hover:text-vscode-accent transition-transform duration-200 ease-out ${
+                isExpanded ? 'rotate-90 text-vscode-accent' : 'rotate-0'
+              }`}
+            />
           </div>
-          
+
           {/* Folder Icon */}
           {isExpanded ? (
-            <VscFolderOpened 
-              size={18} 
-              className="text-blue-400 group-hover:scale-110 transition-transform" 
+            <VscFolderOpened
+              size={18}
+              className="text-blue-400 group-hover:scale-110 group-hover:text-cyan-400 transition-all duration-150"
             />
           ) : (
-            <VscFolder 
-              size={18} 
-              className="text-blue-500 group-hover:scale-110 transition-transform" 
+            <VscFolder
+              size={18}
+              className="text-blue-500 group-hover:scale-110 group-hover:text-blue-400 transition-all duration-150"
             />
           )}
-          
+
           {/* Folder Name */}
-          <span className="text-sm text-vscode-text font-medium group-hover:text-vscode-accent transition-colors flex-1">
+          <span className="text-xs md:text-sm text-vscode-text/90 font-medium group-hover:text-white transition-colors flex-1 truncate">
             {folder.name}
           </span>
-          
-          {/* File Count Badge */}
+
+          {/* File Count Badge with tactile glow */}
           {folder.children && (
-            <span className="text-xs px-1.5 py-0.5 rounded bg-vscode-accent/10 text-vscode-accent font-medium">
+            <span className="text-[11px] px-1.5 py-0.5 rounded-full bg-vscode-accent/15 group-hover:bg-vscode-accent/25 text-vscode-accent font-medium transition-colors">
               {folder.children.length}
             </span>
           )}
         </div>
-        
-        {/* Folder Contents with Animation */}
+
+        {/* Folder Contents with Smooth Expand Animation */}
         {isExpanded && folder.children && (
           <div className="animate-slideDown">
             {folder.children.map((child) =>
@@ -141,7 +162,7 @@ const FileExplorer = () => {
   };
   
   return (
-    <div className="h-full overflow-y-auto custom-scrollbar bg-vscode-sidebar">
+    <div className="h-full overflow-y-auto scrollbar-hide bg-vscode-sidebar select-none">
       {/* Header */}
       <div className="sticky top-0 z-10 px-4 py-3 bg-vscode-sidebar border-b border-vscode-border/50">
         <div className="flex items-center justify-between">

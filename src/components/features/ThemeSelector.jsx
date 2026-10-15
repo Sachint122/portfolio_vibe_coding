@@ -17,7 +17,7 @@ const ThemeSelector = () => {
         Choose your favorite color theme ({Object.keys(themes).length} themes available)
       </p>
       
-      <div className="grid grid-cols-1 gap-3 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
+      <div className="grid grid-cols-1 gap-3 max-h-[600px] overflow-y-auto scrollbar-hide pr-1">
         {Object.entries(themes).map(([key, theme]) => (
           <button
             key={key}
