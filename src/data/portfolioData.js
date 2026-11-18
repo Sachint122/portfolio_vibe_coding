@@ -297,7 +297,28 @@ export const portfolioData = {
       category: "frontend",
       featured: true
     },
-
+    {
+      id: "pdf-edit",
+      title: "Professional PDF & Image Editor",
+      description: "A fast, secure, and private in-browser document editor. View, edit text, annotate, insert signatures, perform client-side OCR text recognition with Tesseract.js, and export documents locally with 100% privacy and zero server uploads.",
+      techStack: ["React 19", "Vite", "Tailwind CSS v4", "PDF-lib", "PDF.js", "Fabric.js", "Tesseract.js (OCR)", "Lucide React"],
+      features: [
+        "100% Client-Side Privacy: zero backend or cloud storage; files, edits, and OCR stay strictly in the browser",
+        "Interactive canvas annotation with Fabric.js: freehand drawing, shapes, highlighters, and digital signature stamps",
+        "Client-side OCR text recognition powered by Tesseract.js: automatically extracts text from images & scans for direct editing",
+        "Comprehensive PDF engine: page reordering, merging, rotating, and PDF-lib client-side export",
+        "Multi-page preview engine with accurate page thumbnails, high-DPR canvas scaling, and drag-and-drop file upload"
+      ],
+      github: "https://github.com/Sachint122/pdf_edit",
+      live: "https://pdf-edit-gray.vercel.app/",
+      image: "/images/pdf-edit.png",
+      images: [
+        "/images/pdf-edit.png",
+        "/images/pdf-edit.svg"
+      ],
+      category: "frontend",
+      featured: true
+    },
     {
       id: "home-automation",
       title: "Home Automation App",
@@ -312,6 +333,28 @@ export const portfolioData = {
       github: "https://github.com/Sachint122/Home-Automation",
       live: null,
       image: "/images/home-automation.png",
+      category: "android",
+      featured: true
+    },
+    {
+      id: "linkvault",
+      title: "LinkVault v1.1.0 — On-Device AI Link Vault",
+      description: "A 100% offline personal link vault for Android with on-device AI. Features zero-tap direct share capture, local LLM pipeline (LiteRT-LM / Qwen3-0.6B) generating 2-line summaries and auto-tags, automatic folder creation, daily background AI auto-clean, copy-only file imports, and user-owned plain JSON storage via Storage Access Framework (SAF). Signed release APK available.",
+      techStack: ["Java 17", "Android SDK (API 35)", "On-Device AI (LiteRT-LM / Qwen3)", "MVVM (ViewModel + LiveData)", "Storage Access Framework (SAF)", "WorkManager", "JSON", "Material 3"],
+      features: [
+        "Direct Share → Save: zero-tap background link capture from any browser or app without interrupting dialogs",
+        "On-Device AI Pipeline: rules-first engine (19 platform rules) + local offline LLM (Qwen3-0.6B) generating 2-line summaries and auto-tags",
+        "AI Auto-Categorization: automatically discovers domain contexts and creates nested folders (up to 3 levels)",
+        "Daily AI Auto-Clean: background WorkManager daemon that prunes 30+ day empty folders & dedupes tags with zero link loss guarantees",
+        "100% Offline & Private: data stored strictly in user-owned JSON files via SAF folders; no backend, database, or analytics",
+        "Production Release: signed APK v1.1.0 available, comprehensive test suite (87/87 unit tests passing), home-screen widget, and dead-link checker"
+      ],
+      github: "https://github.com/Sachint122/linkVault",
+      live: "https://github.com/Sachint122/linkVault/raw/refs/heads/main/releases/LinkVault-v1.1.0.apk",
+      image: "/images/linkvault.svg",
+      images: [
+        "/images/linkvault.svg"
+      ],
       category: "android",
       featured: true
     },

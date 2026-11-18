@@ -28,6 +28,8 @@ const getTabIcon = (tab) => {
       if (tab.name?.endsWith('.js')) return '📄';
       if (tab.name?.endsWith('.json')) return '{}';
       if (tab.name?.endsWith('.md')) return '📝';
+      if (tab.name?.endsWith('.java')) return '☕';
+      if (tab.name?.endsWith('.html')) return '🌐';
       return '📄';
   }
 };

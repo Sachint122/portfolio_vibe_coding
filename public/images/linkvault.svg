@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#061019" />
+      <stop offset="50%" stop-color="#0b1726" />
+      <stop offset="100%" stop-color="#03080e" />
+    </linearGradient>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="800" height="450" fill="url(#bgGrad2)" />
+
+  <!-- Subtle Constellation Grid -->
+  <g opacity="0.07" stroke="#10b981" stroke-width="1">
+    <line x1="0" y1="75" x2="800" y2="75" />
+    <line x1="0" y1="150" x2="800" y2="150" />
+    <line x1="0" y1="225" x2="800" y2="225" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="375" x2="800" y2="375" />
+    <line x1="160" y1="0" x2="160" y2="450" />
+    <line x1="320" y1="0" x2="320" y2="450" />
+    <line x1="480" y1="0" x2="480" y2="450" />
+    <line x1="640" y1="0" x2="640" y2="450" />
+  </g>
+
+  <!-- Ambient Glow -->
+  <circle cx="230" cy="225" r="140" fill="#10b981" opacity="0.14" filter="url(#glow2)" />
+  <circle cx="600" cy="225" r="150" fill="#8b5cf6" opacity="0.12" filter="url(#glow2)" />
+
+  <!-- Android Device Frame Mockup -->
+  <g transform="translate(110, 42)">
+    <rect x="0" y="0" width="220" height="366" rx="32" fill="#0f172a" stroke="#334155" stroke-width="3" />
+    <rect x="10" y="12" width="200" height="342" rx="22" fill="#070e17" stroke="#1e293b" stroke-width="1.5" />
+    
+    <!-- Notch -->
+    <rect x="85" y="20" width="50" height="5" rx="2.5" fill="#334155" />
+
+    <!-- App Header with v1.1.0 Badge -->
+    <rect x="18" y="34" width="184" height="32" rx="8" fill="#1e293b" />
+    <circle cx="34" cy="50" r="8" fill="url(#aiGrad)" />
+    <text x="48" y="54" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">LinkVault</text>
+    <rect x="135" y="42" width="58" height="16" rx="4" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1" />
+    <text x="141" y="53" fill="#6ee7b7" font-family="monospace" font-size="8" font-weight="bold">v1.1.0 AI</text>
+
+    <!-- Zero-Tap Direct Share Toast -->
+    <rect x="18" y="74" width="184" height="40" rx="8" fill="#042f2e" stroke="#14b8a6" stroke-width="1" />
+    <text x="26" y="90" fill="#5eead4" font-family="sans-serif" font-size="9" font-weight="bold">⚡ Direct Share (Zero-Tap Saved)</text>
+    <text x="26" y="104" fill="#99f6e4" font-family="monospace" font-size="8">AI: Auto-categorized → Tech</text>
+
+    <!-- Vault Items with On-Device AI 2-Line Summaries -->
+    <g transform="translate(18, 122)">
+      <!-- Item 1: AI Summary & Tag -->
+      <rect x="0" y="0" width="184" height="58" rx="8" fill="#131e2d" stroke="#1e293b" stroke-width="1" />
+      <circle cx="16" cy="18" r="8" fill="#0284c7" />
+      <text x="12" y="22" fill="#ffffff" font-family="sans-serif" font-size="9">🔗</text>
+      <text x="30" y="17" fill="#f1f5f9" font-family="sans-serif" font-size="9" font-weight="600">Android On-Device AI</text>
+      <text x="146" y="16" fill="#34d399" font-family="sans-serif" font-size="8">✦ AI</text>
+      <text x="30" y="32" fill="#94a3b8" font-family="sans-serif" font-size="7.5">LiteRT-LM offline local Qwen model.</text>
+      <text x="30" y="44" fill="#94a3b8" font-family="sans-serif" font-size="7.5">Auto folder 'Tech' • 2 tags generated.</text>
+      <rect x="30" y="48" width="46" height="8" rx="2" fill="#0369a1" fill-opacity="0.3" />
+
+      <!-- Item 2 -->
+      <rect x="0" y="66" width="184" height="58" rx="8" fill="#131e2d" stroke="#1e293b" stroke-width="1" />
+      <circle cx="16" cy="84" r="8" fill="#7c3aed" />
+      <text x="12" y="88" fill="#ffffff" font-family="sans-serif" font-size="9">📁</text>
+      <text x="30" y="83" fill="#f1f5f9" font-family="sans-serif" font-size="9" font-weight="600">SAF User-Owned Folder</text>
+      <text x="140" y="82" fill="#a78bfa" font-family="monospace" font-size="8">JSON</text>
+      <text x="30" y="98" fill="#94a3b8" font-family="sans-serif" font-size="7.5">Zero cloud storage, 100% offline JSON.</text>
+      <text x="30" y="110" fill="#94a3b8" font-family="sans-serif" font-size="7.5">Copy-only imports ≤ 100MB supported.</text>
+
+      <!-- Item 3: Daily Auto-Clean -->
+      <rect x="0" y="132" width="184" height="52" rx="8" fill="#131e2d" stroke="#1e293b" stroke-width="1" />
+      <circle cx="16" cy="150" r="8" fill="#059669" />
+      <text x="12" y="154" fill="#ffffff" font-family="sans-serif" font-size="9">🧹</text>
+      <text x="30" y="149" fill="#f1f5f9" font-family="sans-serif" font-size="9" font-weight="600">Daily AI Auto-Clean</text>
+      <text x="136" y="148" fill="#10b981" font-family="monospace" font-size="8">Active</text>
+      <text x="30" y="164" fill="#94a3b8" font-family="sans-serif" font-size="7.5">Removes 30d unused folders on disk.</text>
+      <text x="30" y="176" fill="#94a3b8" font-family="sans-serif" font-size="7.5">Links never deleted • Safe guarantee.</text>
+    </g>
+
+    <!-- Bottom Indicator -->
+    <rect x="80" y="340" width="60" height="4" rx="2" fill="#475569" />
+  </g>
+
+  <!-- Right Side: Details & Highlights -->
+  <g transform="translate(390, 85)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="235" height="26" rx="13" fill="#10b981" fill-opacity="0.18" stroke="#10b981" stroke-width="1" />
+    <text x="14" y="17" fill="#6ee7b7" font-family="sans-serif" font-size="11" font-weight="bold">★ On-Device AI Pipeline • v1.1.0</text>
+
+    <!-- Main Title -->
+    <text x="0" y="62" fill="#ffffff" font-family="sans-serif" font-size="30" font-weight="800" letter-spacing="-0.5">LinkVault v1.1.0</text>
+    <text x="0" y="92" fill="#94a3b8" font-family="sans-serif" font-size="14" font-weight="500">100% Offline AI Link Vault &amp; Manager</text>
+
+    <!-- Feature Checklist -->
+    <g transform="translate(0, 115)">
+      <!-- Item 1 -->
+      <circle cx="8" cy="8" r="7" fill="#06b6d4" />
+      <path d="M 5 8 L 7 10 L 11 6" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+      <text x="24" y="12" fill="#cbd5e1" font-family="sans-serif" font-size="13" font-weight="500">Direct Share → Zero-Tap Instant Capture</text>
+
+      <!-- Item 2 -->
+      <circle cx="8" cy="38" r="7" fill="#06b6d4" />
+      <path d="M 5 38 L 7 40 L 11 36" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+      <text x="24" y="42" fill="#cbd5e1" font-family="sans-serif" font-size="13" font-weight="500">On-Device AI (LiteRT-LM Qwen3) 2-Line Summaries</text>
+
+      <!-- Item 3 -->
+      <circle cx="8" cy="68" r="7" fill="#06b6d4" />
+      <path d="M 5 68 L 7 70 L 11 66" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+      <text x="24" y="72" fill="#cbd5e1" font-family="sans-serif" font-size="13" font-weight="500">AI Auto-Folder Creation &amp; Redundant Tag Cleaner</text>
+
+      <!-- Item 4 -->
+      <circle cx="8" cy="98" r="7" fill="#06b6d4" />
+      <path d="M 5 98 L 7 100 L 11 96" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+      <text x="24" y="102" fill="#cbd5e1" font-family="sans-serif" font-size="13" font-weight="500">User-Owned SAF JSON Storage • Signed APK Available</text>
+    </g>
+
+    <!-- Tech Stack Pill Group -->
+    <g transform="translate(0, 246)">
+      <rect x="0" y="0" width="60" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="12" y="16" fill="#34d399" font-family="monospace" font-size="11">Java 17</text>
+
+      <rect x="70" y="0" width="88" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="78" y="16" fill="#38bdf8" font-family="monospace" font-size="11">LiteRT-LM</text>
+
+      <rect x="168" y="0" width="70" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="178" y="16" fill="#a78bfa" font-family="monospace" font-size="11">MVVM</text>
+
+      <rect x="248" y="0" width="75" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="258" y="16" fill="#f59e0b" font-family="monospace" font-size="11">SAF JSON</text>
+
+      <rect x="333" y="0" width="55" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="342" y="16" fill="#ec4899" font-family="monospace" font-size="11">APK</text>
+    </g>
+  </g>
+</svg>

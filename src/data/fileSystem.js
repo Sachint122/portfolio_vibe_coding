@@ -55,7 +55,15 @@ export const fileSystem = {
           content: 'project',
           projectId: 'dti-website'
         },
-
+        {
+          id: 'project-pdf-edit',
+          name: 'pdf-edit.jsx',
+          type: 'file',
+          language: 'react',
+          icon: 'react',
+          content: 'project',
+          projectId: 'pdf-edit'
+        },
         {
           id: 'project-home-automation',
           name: 'home-automation.java',
@@ -64,6 +72,15 @@ export const fileSystem = {
           icon: 'java',
           content: 'project',
           projectId: 'home-automation'
+        },
+        {
+          id: 'project-linkvault',
+          name: 'linkvault.java',
+          type: 'file',
+          language: 'java',
+          icon: 'java',
+          content: 'project',
+          projectId: 'linkvault'
         },
 
         {

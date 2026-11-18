@@ -13,7 +13,9 @@ const FileExplorer = () => {
       json: { icon: '{}', color: 'text-green-400', bg: 'bg-green-400/10' },
       markdown: { icon: '📝', color: 'text-blue-400', bg: 'bg-blue-400/10' },
       typescript: { icon: '📘', color: 'text-blue-500', bg: 'bg-blue-500/10' },
-      pdf: { icon: '📕', color: 'text-red-400', bg: 'bg-red-400/10' }
+      pdf: { icon: '📕', color: 'text-red-400', bg: 'bg-red-400/10' },
+      java: { icon: '☕', color: 'text-orange-400', bg: 'bg-orange-400/10' },
+      html: { icon: '🌐', color: 'text-amber-400', bg: 'bg-amber-400/10' }
     };
   }, []);
   

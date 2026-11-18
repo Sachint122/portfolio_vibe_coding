@@ -22,7 +22,11 @@ const PROJECT_ALIASES = {
   'dindia-corporate': 'dindia-website',
   'home-automation-app': 'home-automation',
   'pasovit': 'pasovit-task-manager',
-  'youtube': 'youtube-downloader'
+  'youtube': 'youtube-downloader',
+  'pdf_edit': 'pdf-edit',
+  'pdf-editor': 'pdf-edit',
+  'link-vault': 'linkvault',
+  'linkVault': 'linkvault'
 };
 
 const PROJECT_FILE_MAP = {
@@ -31,7 +35,9 @@ const PROJECT_FILE_MAP = {
   'dindia-website': { tabId: 'project-dindia-website', name: 'dindia-website.jsx' },
   'send-mail-app': { tabId: 'project-send-mail', name: 'send-mail-app.js' },
   'dti-website': { tabId: 'project-dti', name: 'destination-technologies.jsx' },
+  'pdf-edit': { tabId: 'project-pdf-edit', name: 'pdf-edit.jsx' },
   'home-automation': { tabId: 'project-home-automation', name: 'home-automation.java' },
+  'linkvault': { tabId: 'project-linkvault', name: 'linkvault.java' },
   'library-management': { tabId: 'project-library', name: 'library-management.ts' },
   'car-rental-website': { tabId: 'project-car-rental', name: 'car-rental-website.html' },
   'pasovit-task-manager': { tabId: 'project-pasovit', name: 'pasovit-task-manager.js' },

@@ -110,11 +110,13 @@ The file tree in the sidebar is rendered from this nested object. Each file entr
 3. `dindia-website` (`dindia-website.jsx`, tab: `project-dindia-website`)
 4. `send-mail-app` (`send-mail-app.js`, tab: `project-send-mail`)
 5. `dti-website` (`destination-technologies.jsx`, tab: `project-dti`)
-6. `home-automation` (`home-automation.java`, tab: `project-home-automation`)
-7. `library-management` (`library-management.ts`, tab: `project-library`)
-8. `car-rental-website` (`car-rental-website.html`, tab: `project-car-rental`)
-9. `pasovit-task-manager` (`pasovit-task-manager.js`, tab: `project-pasovit`)
-10. `youtube-downloader` (`youtube-downloader.js`, tab: `project-youtube`)
+6. `pdf-edit` (`pdf-edit.jsx`, tab: `project-pdf-edit`)
+7. `home-automation` (`home-automation.java`, tab: `project-home-automation`)
+8. `linkvault` (`linkvault.java`, tab: `project-linkvault`)
+9. `library-management` (`library-management.ts`, tab: `project-library`)
+10. `car-rental-website` (`car-rental-website.html`, tab: `project-car-rental`)
+11. `pasovit-task-manager` (`pasovit-task-manager.js`, tab: `project-pasovit`)
+12. `youtube-downloader` (`youtube-downloader.js`, tab: `project-youtube`)
 
-> **Alias Resolution**: `ProjectsSection.jsx` provides automatic fallback alias resolution via `PROJECT_ALIASES` (e.g. mapping `erp-system` -> `dindia-erp-system`, `send-mail` -> `send-mail-app`, `library-mgmt` -> `library-management`).
+> **Alias Resolution**: `ProjectsSection.jsx` provides automatic fallback alias resolution via `PROJECT_ALIASES` (e.g. mapping `erp-system` -> `dindia-erp-system`, `send-mail` -> `send-mail-app`, `library-mgmt` -> `library-management`, `pdf_edit` / `pdf-editor` -> `pdf-edit`, `link-vault` / `linkVault` -> `linkvault`).
 
